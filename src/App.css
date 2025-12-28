@@ -1161,9 +1161,17 @@ section {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 0;
+  }
+
+  .nav-container {
+    padding: 0 1rem;
+  }
+
   .nav-links {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     right: 0;
     background: var(--bg-dark);
@@ -1257,6 +1265,15 @@ section {
   .form-input,
   .form-textarea {
     font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .hero {
+    padding: 120px 1rem 2rem 1rem;
+    min-height: calc(100vh - 60px);
+  }
+
+  .hero-photo-container {
+    margin-bottom: 1.5rem;
   }
 
   .hero-photo-wrapper {
@@ -1354,9 +1371,18 @@ section {
     padding: 0 1rem;
   }
 
+  .navbar {
+    padding: 0.5rem 0;
+  }
+
   .hero {
-    padding: 100px 1rem 0 1rem;
-    min-height: calc(100vh - 100px);
+    padding: 100px 1rem 2rem 1rem;
+    min-height: calc(100vh - 50px);
+  }
+
+  .hero-photo-wrapper {
+    width: 120px;
+    height: 120px;
   }
 
   section {
