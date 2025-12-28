@@ -21,6 +21,11 @@ const ParticlesBackground = () => {
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
+    // Reduce particles on mobile for better performance
+    const isMobile = window.innerWidth < 768
+    const particleCount = isMobile ? 25 : 50
+    const maxConnectionDistance = isMobile ? 80 : 120
+
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width
@@ -52,7 +57,7 @@ const ParticlesBackground = () => {
     }
 
     // Create particles
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle())
     }
 
@@ -66,10 +71,10 @@ const ParticlesBackground = () => {
           const dy = particles[i].y - particles[j].y
           const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < 120) {
+          if (distance < maxConnectionDistance) {
             ctx.strokeStyle = theme === 'dark'
-              ? `rgba(99, 102, 241, ${0.2 * (1 - distance / 120)})`
-              : `rgba(99, 102, 241, ${0.1 * (1 - distance / 120)})`
+              ? `rgba(99, 102, 241, ${0.2 * (1 - distance / maxConnectionDistance)})`
+              : `rgba(99, 102, 241, ${0.1 * (1 - distance / maxConnectionDistance)})`
             ctx.lineWidth = 1
             ctx.beginPath()
             ctx.moveTo(particles[i].x, particles[i].y)

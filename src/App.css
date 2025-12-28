@@ -1173,6 +1173,7 @@ section {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     border-bottom: 1px solid var(--border);
+    z-index: 999;
   }
 
   .nav-links.active {
@@ -1185,20 +1186,40 @@ section {
 
   .mobile-menu-btn {
     display: block;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .theme-toggle {
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .hero-buttons {
     flex-direction: column;
     align-items: stretch;
+    gap: 1rem;
   }
 
   .btn {
     width: 100%;
     justify-content: center;
+    min-height: 48px;
+    padding: 1rem 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
   }
 
   .about-content {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .interests-grid {
@@ -1207,6 +1228,17 @@ section {
 
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-filters {
+    gap: 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-height: 36px;
   }
 
   .contact-methods {
@@ -1219,7 +1251,12 @@ section {
   }
 
   .contact-form {
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 
   .hero-photo-wrapper {
@@ -1244,6 +1281,10 @@ section {
     flex-wrap: wrap;
   }
 
+  .section-title {
+    font-size: 2rem;
+  }
+
   .section-line {
     width: 100%;
     margin-left: 0;
@@ -1263,6 +1304,49 @@ section {
     width: 2.5rem;
     height: 2.5rem;
   }
+
+  .progress-bars {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .progress-item {
+    padding: 1.25rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-category {
+    padding: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+  }
+
+  .languages-list {
+    gap: 0.75rem;
+  }
+
+  .language-tag {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1271,11 +1355,89 @@ section {
   }
 
   .hero {
-    padding: 0 1rem;
+    padding: 100px 1rem 0 1rem;
+    min-height: calc(100vh - 100px);
   }
 
   section {
-    padding: 4rem 0;
+    padding: 3rem 0;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-greeting {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-number {
+    font-size: 1.2rem;
+  }
+
+  .nav-container {
+    padding: 0 1rem;
+  }
+
+  .about-description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .interest-card {
+    padding: 1.5rem;
+  }
+
+  .interest-title {
+    font-size: 1.1rem;
+  }
+
+  .project-name {
+    font-size: 1.1rem;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
+
+  .contact-description {
+    font-size: 1rem;
+  }
+
+  .progress-section-title {
+    font-size: 1.3rem;
+  }
+
+  .contribution-title {
+    font-size: 1.3rem;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+
+  .hero-socials {
+    gap: 1rem;
+  }
+
+  .social-link {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
