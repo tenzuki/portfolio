@@ -1,0 +1,36 @@
+/* Component specific styles can go here if needed */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--text-primary);
+  transform-origin: 0%;
+  z-index: 9999;
+  box-shadow: 0 0 10px var(--text-primary);
+}
+
+.vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 30%, rgba(3, 3, 3, 0.9) 100%);
+  z-index: 1; /* Below content, above background */
+}
+
+.mouse-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2; /* Below content, above background */
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
