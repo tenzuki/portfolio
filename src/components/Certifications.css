@@ -13,11 +13,20 @@
 }
 
 @media (max-width: 900px) {
+    .certifications {
+        padding: 5rem 1rem;
+    }
     .certs-grid {
         grid-template-columns: 1fr;
     }
     .cert-image-wrapper {
         min-height: 300px;
+    }
+    .cert-card {
+        padding: 2rem;
+    }
+    .cert-title {
+        font-size: 1.75rem;
     }
 }
 

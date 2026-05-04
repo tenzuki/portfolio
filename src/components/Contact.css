@@ -24,6 +24,9 @@
 }
 
 @media (max-width: 768px) {
+    .contact {
+        padding: 5rem 1rem 2rem;
+    }
     .contact-bento {
         grid-template-columns: 1fr;
     }
@@ -31,7 +34,11 @@
         min-height: 250px;
     }
     .contact-content {
-        padding: 3rem 1.5rem;
+        padding: 2rem 1.5rem;
+    }
+    .email-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
     }
 }
 

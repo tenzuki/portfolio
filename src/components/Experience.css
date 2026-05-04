@@ -40,6 +40,10 @@
 }
 
 @media (max-width: 900px) {
+    .experience {
+        padding: 5rem 1rem;
+    }
+
     .experience-grid {
         grid-template-columns: 1fr;
     }
@@ -49,6 +53,24 @@
         top: 0 !important;
         max-height: 400px !important;
         margin-bottom: 2rem;
+    }
+
+    .timeline-content {
+        padding: 2rem;
+    }
+
+    .role-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .date {
+        margin-left: 0;
+    }
+
+    .role-header h3 {
+        font-size: 1.75rem;
     }
 }
 

@@ -99,3 +99,16 @@
     border-color: var(--text-primary);
     transform: translateY(-4px);
 }
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 0 1rem;
+    }
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 5rem);
+    }
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

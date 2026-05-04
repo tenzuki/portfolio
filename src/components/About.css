@@ -46,8 +46,18 @@
 }
 
 @media (max-width: 900px) {
+    .about {
+        padding: 5rem 1rem;
+    }
     .about-grid {
         grid-template-columns: 1fr;
+    }
+    .about-text-card {
+        padding: 2rem;
+        font-size: 1.25rem;
+    }
+    .about-image-wrapper {
+        min-height: 400px;
     }
 }
 
@@ -138,6 +148,9 @@
 @media (max-width: 900px) {
     .skill-0, .skill-1, .skill-2, .skill-3, .skill-4 {
         grid-column: span 12;
+    }
+    .skill-card {
+        padding: 2rem;
     }
 }
 
