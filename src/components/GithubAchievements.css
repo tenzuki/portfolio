@@ -1,0 +1,201 @@
+.achievements {
+    min-height: 50vh;
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievements-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xl);
+    width: 100%;
+}
+
+/* Badges Grid Styles */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-md);
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 var(--spacing-sm);
+}
+
+.badge-wrapper {
+    display: flex;
+    perspective: 1000px;
+}
+
+.badge-card {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.badge-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.badge-img-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.badge-card:hover .badge-glow {
+    opacity: 1;
+}
+
+.badge-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+.badge-card:hover .badge-img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.badge-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--white);
+    letter-spacing: -0.01em;
+}
+
+.badge-info p {
+    font-size: 0.85rem;
+    color: var(--light-gray);
+    line-height: 1.4;
+}
+
+.achievements-wrapper {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.achievements-card {
+    padding: var(--spacing-lg);
+    background: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.achievements-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: -0.02em;
+    color: var(--white);
+}
+
+.achievements-desc {
+    color: var(--light-gray);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-md);
+    max-width: 600px;
+}
+
+.trophy-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: var(--spacing-sm);
+}
+
+.trophy-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.trophy-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.trophy-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.trophy-img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    min-width: 600px; /* Ensure it doesn't squish too much on mobile */
+}
+
+@media (max-width: 768px) {
+    .achievements {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .achievements-card {
+        padding: var(--spacing-md);
+    }
+    
+    .badges-grid {
+        grid-template-columns: 1fr;
+        padding: 0 var(--spacing-md);
+    }
+    
+    .badge-card {
+        flex-direction: row;
+        text-align: left;
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+
+    .badge-img-container {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .badge-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .trophy-container {
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--spacing-md);
+    }
+}

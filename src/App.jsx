@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import GithubAchievements from './components/GithubAchievements';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import ThreeDBackground from './components/ThreeDBackground';
@@ -81,6 +82,7 @@ function App() {
           <About />
           <Experience />
           <Projects />
+          <GithubAchievements />
           <Certifications />
           <Contact />
         </main>
