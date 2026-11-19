@@ -3,16 +3,16 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem 0;
-    background: rgba(3, 3, 3, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    padding: 1.1rem 0;
+    background: rgba(3, 3, 5, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .navbar-container {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -20,13 +20,14 @@
     padding: 0 2rem;
 }
 
+/* Brand Identity with Avatar Logo */
 .logo {
     display: flex;
     align-items: center;
     gap: 0.85rem;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 900;
-    color: var(--text-primary);
+    color: #ffffff;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
@@ -43,7 +44,7 @@
     height: 42px;
     border-radius: 50%;
     padding: 2px;
-    background: linear-gradient(135deg, rgba(100, 181, 246, 0.8), rgba(0, 255, 136, 0.6));
+    background: linear-gradient(135deg, rgba(100, 181, 246, 0.85), rgba(0, 255, 136, 0.65));
     box-shadow: 0 0 16px rgba(100, 181, 246, 0.35);
     display: flex;
     align-items: center;
@@ -68,8 +69,8 @@
     position: absolute;
     bottom: -1px;
     right: -1px;
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     background: #00ff88;
     border: 2px solid #030303;
     border-radius: 50%;
@@ -82,46 +83,47 @@
     letter-spacing: 0.06em;
 }
 
+/* Nav Links */
 .nav-links {
     display: flex;
     align-items: center;
     gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
-    font-size: 1rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     transition: color 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    text-decoration: none;
 }
 
 .nav-links a:hover {
-    color: var(--text-primary);
-}
-
-.nav-ai-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 0.35rem 0.9rem;
     color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    transition: all 0.3s ease;
-    font-family: inherit;
 }
 
-.nav-ai-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+@media (max-width: 900px) {
+    .nav-links {
+        gap: 1.25rem;
+    }
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 1.25rem;
+    }
+    .logo-text {
+        display: none;
+    }
+    .nav-links {
+        gap: 0.85rem;
+    }
 }
