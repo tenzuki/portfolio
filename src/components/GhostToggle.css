@@ -1,0 +1,199 @@
+/* Animated Ghost Toggle - Inspired by Coding Stella */
+.ghost-toggle-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    user-select: none;
+}
+
+/* Boo! Popover Speech Bubble */
+.ghost-boo-bubble {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #00ff88;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.ghost-boo-bubble.hide {
+    opacity: 0;
+    transform: translateY(6px) scale(0.8);
+}
+
+.ghost-boo-bubble.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: boo-bounce 1s infinite alternate ease-in-out;
+}
+
+@keyframes boo-bounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-3px) scale(1.05); }
+}
+
+.ghost-toggle-control {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+/* Toggle Switch Track */
+.ghost-switch {
+    position: relative;
+    display: inline-block;
+    width: 72px;
+    height: 26px;
+}
+
+.ghost-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ghost-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #27272a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: 0.4s ease;
+}
+
+.ghost-slider.round {
+    border-radius: 34px;
+}
+
+.ghost-switch input:checked + .ghost-slider {
+    background-color: #6366f1;
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+}
+
+/* Mover that translates when checked */
+.ghost-mover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ghost-switch input:checked + .ghost-slider .ghost-mover {
+    transform: translateX(44px);
+}
+
+/* Floating Ghost Figure */
+.ghost-character {
+    position: absolute;
+    left: 2px;
+    top: -6px;
+    width: 28px;
+    height: 28px;
+    background-color: #ffffff;
+    border-radius: 100px;
+    animation: ghost-bobble 4s infinite ease-in-out;
+    filter: drop-shadow(0px 4px 10px rgba(255, 255, 255, 0.8));
+}
+
+.ghost-switch input:checked + .ghost-slider .ghost-character {
+    filter: drop-shadow(0px 4px 12px rgba(165, 180, 252, 0.9));
+}
+
+/* Ghost Body Bottom Skirt */
+.ghost-character::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 3px);
+    left: -10%;
+    width: 120%;
+    height: 10px;
+    border-radius: 100px;
+    background-color: #ffffff;
+    animation: ghost-sway 2s infinite ease-in-out;
+}
+
+/* Ghost Eyes that Blink */
+.ghost-character::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 5px);
+    top: 10px;
+    width: 8px;
+    height: 6px;
+    border-right: 2px solid #000000;
+    border-left: 2px solid #000000;
+    animation: ghost-bobble 2s infinite ease-in-out, ghost-blink 4.25s infinite;
+}
+
+/* Label text */
+.ghost-label-text {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a1a1aa;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.ghost-status-on {
+    color: #6366f1;
+    font-weight: 800;
+    font-size: 0.7rem;
+}
+
+/* Bobble and Sway Keyframes from Coding Stella */
+@keyframes ghost-bobble {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(15%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes ghost-sway {
+    0% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    100% { transform: translateX(-2px); }
+}
+
+@keyframes ghost-blink {
+    0%, 39% {
+        top: 10px;
+        height: 6px;
+    }
+    40%, 50% {
+        top: 13px;
+        height: 1px;
+    }
+    51%, 100% {
+        top: 10px;
+        height: 6px;
+    }
+}
+
+/* Ambient effect when Ghost Mode is active */
+body.ghost-mode-active {
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.15));
+}
+
+body.ghost-mode-active .app {
+    animation: ghost-ambient-glow 8s infinite alternate ease-in-out;
+}
+
+@keyframes ghost-ambient-glow {
+    0% {
+        box-shadow: inset 0 0 80px rgba(99, 102, 241, 0.08);
+    }
+    100% {
+        box-shadow: inset 0 0 100px rgba(0, 255, 136, 0.08);
+    }
+}

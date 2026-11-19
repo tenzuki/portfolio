@@ -145,10 +145,67 @@
     transform: translateY(-5px);
 }
 
+.contact-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-cta-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.contact-creepy-btn {
+    min-width: 220px;
+    height: 54px;
+    font-size: 1.05rem;
+}
+
+/* Spotlight Hub in Contact */
+.contact-spotlight-hub {
+    margin: 4rem 0 6rem;
+    text-align: left;
+}
+
+.spotlight-hub-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.hub-overline {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #64b5f6;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.hub-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem 0;
+}
+
+.hub-desc {
+    font-size: 1rem;
+    color: #94a3b8;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .footer {
     text-align: center;
-    font-size: 1rem;
-    padding-top: 2rem;
+    font-size: 0.95rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
     font-weight: 300;
     margin-top: auto;

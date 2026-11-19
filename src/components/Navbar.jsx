@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import GhostToggle from './GhostToggle';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -24,6 +25,9 @@ const Navbar = () => {
           </li>
           <li><a href="#certifications">Resume</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li className="nav-ghost-wrapper">
+            <GhostToggle label="" />
+          </li>
         </ul>
       </div>
     </motion.nav>

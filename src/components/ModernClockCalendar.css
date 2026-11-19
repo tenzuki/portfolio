@@ -1,0 +1,375 @@
+/* Modern Clock & Calendar HUD - Coding Stella Inspired */
+.modern-clock-widget {
+    background: rgba(13, 14, 18, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.modern-clock-widget::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.8), transparent);
+}
+
+/* Header */
+.clock-hud-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.clock-hud-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: #64b5f6;
+    background: rgba(100, 181, 246, 0.1);
+    border: 1px solid rgba(100, 181, 246, 0.25);
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.hud-pulse {
+    width: 6px;
+    height: 6px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff88;
+    animation: hud-blink 1.5s infinite;
+}
+
+@keyframes hud-blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.clock-hud-location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #94a3b8;
+}
+
+/* Main Clock Stage */
+.clock-main-stage {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0.5rem 0 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Concentric Dial Rings */
+.clock-dial-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-day {
+    width: 310px;
+    height: 310px;
+    border: 1px dashed rgba(255, 45, 85, 0.25);
+}
+
+.ring-month {
+    width: 250px;
+    height: 250px;
+    border: 1px dashed rgba(0, 122, 255, 0.3);
+}
+
+.ring-dayname {
+    width: 195px;
+    height: 195px;
+    border: 1px dashed rgba(76, 217, 100, 0.35);
+}
+
+.clock-ring-rotator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Dial items placed around perimeter */
+.dial-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    transform-origin: 0 0;
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.dial-day {
+    margin-top: -150px;
+    margin-left: -7px;
+    font-size: 0.6rem;
+}
+
+.dial-month {
+    margin-top: -120px;
+    margin-left: -11px;
+    font-size: 0.65rem;
+}
+
+.dial-dayname {
+    margin-top: -93px;
+    margin-left: -11px;
+    font-size: 0.68rem;
+}
+
+.dial-item.active-day {
+    color: #ff2d55;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(255, 45, 85, 0.8);
+}
+
+.dial-item.active-month {
+    color: #007aff;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(0, 122, 255, 0.8);
+}
+
+.dial-item.active-dayname {
+    color: #4cd964;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(76, 217, 100, 0.8);
+}
+
+/* Center Clock Dial */
+.clock-center-dial {
+    position: relative;
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #181920 0%, #0d0e12 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.center-core-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(100, 181, 246, 0.2);
+}
+
+/* Hands */
+.clock-hand-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: transform 0.05s linear;
+}
+
+.hand-bar {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+}
+
+.hand-bar-hour {
+    width: 3.5px;
+    height: 34px;
+    background: #ffffff;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+.hand-bar-minute {
+    width: 2.5px;
+    height: 48px;
+    background: #64b5f6;
+    box-shadow: 0 0 8px rgba(100, 181, 246, 0.8);
+}
+
+.hand-bar-second {
+    width: 1.5px;
+    height: 56px;
+    background: #ff2d55;
+    box-shadow: 0 0 8px rgba(255, 45, 85, 0.9);
+}
+
+.clock-center-pin {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+
+/* Digital Readout */
+.center-digital-display {
+    position: absolute;
+    bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.digital-time {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 0.05em;
+}
+
+.digital-label {
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    color: #64748b;
+    font-weight: 700;
+}
+
+/* Side Telemetry Widgets */
+.side-telemetry-widget {
+    position: absolute;
+    z-index: 6;
+    background: rgba(18, 20, 26, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 0.5rem 0.65rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-left {
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.side-right {
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.telemetry-icon-box {
+    margin-bottom: 2px;
+}
+
+.telemetry-val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #f1f5f9;
+}
+
+.telemetry-sub {
+    font-size: 0.55rem;
+    color: #64748b;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+/* Activity Bars Grid */
+.activity-bars-grid {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 38px;
+    padding-top: 4px;
+}
+
+.telemetry-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.telemetry-bar-fill {
+    width: 4px;
+    border-radius: 2px;
+    transition: height 0.4s ease;
+}
+
+.telemetry-day-letter {
+    font-size: 0.5rem;
+    color: #64748b;
+    margin-top: 2px;
+    font-family: monospace;
+}
+
+/* Footer */
+.clock-hud-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    color: #64748b;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.hud-metric {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'SF Mono', monospace;
+}
+
+@media (max-width: 600px) {
+    .clock-main-stage {
+        transform: scale(0.85);
+        margin: 0;
+    }
+    .side-left {
+        left: 0;
+    }
+    .side-right {
+        right: 0;
+    }
+}

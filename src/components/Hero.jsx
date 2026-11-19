@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Github, Sparkles } from 'lucide-react';
+import CreepyEyeButton from './CreepyEyeButton';
 
 import './Hero.css';
 
@@ -86,9 +87,9 @@ const Hero = () => {
                     transition={{ duration: 1, delay: 1.8, ease: "easeOut" }}
                     className="hero-actions"
                 >
-                    <a href="#projects" className="btn btn-primary">
+                    <CreepyEyeButton href="#projects" variant="primary">
                         View Projects <ArrowRight size={18} />
-                    </a>
+                    </CreepyEyeButton>
                     <a 
                         href="#ai-assistant" 
                         className="btn btn-secondary" 

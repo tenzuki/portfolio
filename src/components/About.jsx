@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Code2, Smartphone, Eye, ShieldCheck, Sparkles } from 'lucide-react';
 import TiltCard from './TiltCard';
+import ModernClockCalendar from './ModernClockCalendar';
 import './About.css';
 
 const About = () => {
@@ -108,6 +109,27 @@ const About = () => {
                             <img src="/assets/photo3.jpg" alt="Parthiv K" className="profile-img" loading="lazy" decoding="async" />
                         </motion.div>
                     </div>
+
+                    {/* Modern Clock & Real-Time Telemetry HUD - Coding Stella Inspired */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.8, type: "spring" }}
+                        className="about-clock-row"
+                    >
+                        <div className="about-clock-intro">
+                            <span className="telemetry-badge">LIVE STATION TELEMETRY</span>
+                            <h3 className="telemetry-title">Real-Time Precision & Velocity</h3>
+                            <p className="telemetry-desc">
+                                Operating from Ernakulam (UTC+05:30) as Tech Lead at Bornov Technologies LLP. 
+                                Synchronized analog ticks, day-of-week dials, month rotation, and live sprint activity velocities.
+                            </p>
+                        </div>
+                        <div className="about-clock-container">
+                            <ModernClockCalendar />
+                        </div>
+                    </motion.div>
 
                     {/* 4 Story Capabilities Grid */}
                     <div className="skills-grid">
