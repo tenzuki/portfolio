@@ -13,7 +13,13 @@ const Navbar = () => {
       className="navbar"
     >
       <div className="navbar-container">
-        <a href="#" className="logo">Parthiv K.</a>
+        <a href="#" className="logo">
+          <div className="logo-avatar-wrap">
+            <img src="/assets/avatar.jpg" alt="Parthiv K" className="logo-avatar" />
+            <span className="logo-status-dot" />
+          </div>
+          <span className="logo-text">Parthiv K.</span>
+        </a>
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
@@ -25,7 +31,7 @@ const Navbar = () => {
               size="sm" 
               title="Chat with Parthiv's AI Assistant"
             >
-              <Sparkles size={14} color="#000000" /> Ask AI
+              <Sparkles size={13} /> Ask AI
             </CreepyEyeButton>
           </li>
           <li><a href="#certifications">Resume</a></li>
