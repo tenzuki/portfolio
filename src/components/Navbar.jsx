@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -16,6 +17,12 @@ const Navbar = () => {
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li>
+            <a href="#ai-assistant" className="nav-ai-btn" title="Chat with Parthiv's AI Assistant">
+              <Sparkles size={14} color="#64b5f6" /> Ask AI
+            </a>
+          </li>
+          <li><a href="#certifications">Resume</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>

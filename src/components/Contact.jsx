@@ -20,7 +20,7 @@ const Contact = () => {
                 className="contact-bento"
             >
                 <div className="contact-image-wrapper">
-                    <img src="/assets/photo4.jpg" alt="Parthiv Visual" className="contact-img" />
+                    <img src="/assets/photo4.jpg" alt="Parthiv Visual" className="contact-img" loading="lazy" decoding="async" />
                 </div>
                 
                 <div className="contact-content">
@@ -31,7 +31,7 @@ const Contact = () => {
                         Whether you have a question or just want to say hi, I'll try my best to get back to you!
                     </p>
 
-                    <a href="mailto:parthiv@bezgofresh.com" className="email-btn">
+                    <a href="mailto:parthiv.kp28@gmail.com" className="email-btn">
                         Say Hello <Mail size={18} style={{ marginLeft: '0.5rem' }} />
                     </a>
 

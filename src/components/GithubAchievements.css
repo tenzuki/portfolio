@@ -1,26 +1,42 @@
 .achievements {
     min-height: 50vh;
-    padding: var(--spacing-xl) 0;
+    padding: 10rem 2rem;
     position: relative;
     overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .achievements {
+        padding: 5rem 1rem;
+    }
 }
 
 .achievements-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-xl);
+    gap: 4rem;
     width: 100%;
 }
 
 /* Badges Grid Styles */
 .badges-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
     width: 100%;
-    max-width: 1200px;
-    padding: 0 var(--spacing-sm);
+}
+
+@media (max-width: 1100px) {
+    .badges-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .badges-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .badge-wrapper {
@@ -30,28 +46,52 @@
 
 .badge-card {
     width: 100%;
-    padding: var(--spacing-md);
-    background: rgba(20, 20, 20, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    border-radius: 16px;
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .badge-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.badge-tier-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+}
+
+.badge-tier-bronze {
+    background: rgba(205, 127, 50, 0.15);
+    border-color: rgba(205, 127, 50, 0.4);
+    color: #e59866;
 }
 
 .badge-img-container {
     position: relative;
-    width: 120px;
-    height: 120px;
-    margin-bottom: var(--spacing-sm);
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,9 +104,9 @@
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
     border-radius: 50%;
-    filter: blur(20px);
+    filter: blur(18px);
     opacity: 0;
     transition: opacity 0.5s ease;
 }
@@ -76,126 +116,309 @@
 }
 
 .badge-img {
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 1;
 }
 
 .badge-card:hover .badge-img {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.1) rotate(4deg);
 }
 
 .badge-info h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--white);
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
     letter-spacing: -0.01em;
 }
 
 .badge-info p {
     font-size: 0.85rem;
-    color: var(--light-gray);
-    line-height: 1.4;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    font-weight: 300;
 }
 
-.achievements-wrapper {
+/* GitHub Stats & Metrics Dashboard */
+.gh-dashboard-wrapper {
     width: 100%;
-    max-width: 1000px;
 }
 
-.achievements-card {
-    padding: var(--spacing-lg);
-    background: rgba(20, 20, 20, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+.gh-dashboard-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 3rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.4s ease;
+}
+
+.gh-dashboard-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.gh-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.gh-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gh-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.gh-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+}
+
+.gh-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.gh-profile-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* 3-Column Stats Grid */
+.gh-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+@media (max-width: 960px) {
+    .gh-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .gh-dashboard-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.gh-stat-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 2rem 1.75rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
 }
 
-.achievements-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-xs);
-    letter-spacing: -0.02em;
-    color: var(--white);
-}
-
-.achievements-desc {
-    color: var(--light-gray);
-    font-size: 0.95rem;
-    margin-bottom: var(--spacing-md);
-    max-width: 600px;
-}
-
-.trophy-container {
-    width: 100%;
+.gh-box-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
     display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Stat Box 1: Core Numbers & Grade */
+.gh-numbers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.gh-number-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.gh-number-item strong {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.gh-grade-badge {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.grade-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #64b5f6;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    overflow-x: auto;
-    padding: var(--spacing-sm);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #64b5f6;
+    background: rgba(100, 181, 246, 0.1);
 }
 
-.trophy-container::-webkit-scrollbar {
+/* Stat Box 2: Contributions & Streaks */
+.gh-streak-highlight {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.streak-flame-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ff9100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff9100;
+    background: rgba(255, 145, 0, 0.1);
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.streak-info h5 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.streak-info span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.gh-sub-streaks {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.sub-streak-item span {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.sub-streak-item strong {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+/* Stat Box 3: Most Used Languages */
+.lang-bars-stacked {
+    display: flex;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.lang-segment {
+    height: 100%;
+    transition: width 0.8s ease;
+}
+
+.lang-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.lang-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.lang-dot {
+    width: 8px;
     height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
-.trophy-container::-webkit-scrollbar-track {
+.lang-pct {
+    margin-left: auto;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.gh-orgs-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.orgs-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.org-tag {
+    font-size: 0.78rem;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-}
-
-.trophy-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-.trophy-img {
-    max-width: 100%;
-    height: auto;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-    min-width: 600px; /* Ensure it doesn't squish too much on mobile */
-}
-
-@media (max-width: 768px) {
-    .achievements {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .achievements-card {
-        padding: var(--spacing-md);
-    }
-    
-    .badges-grid {
-        grid-template-columns: 1fr;
-        padding: 0 var(--spacing-md);
-    }
-    
-    .badge-card {
-        flex-direction: row;
-        text-align: left;
-        padding: var(--spacing-sm) var(--spacing-md);
-        gap: var(--spacing-md);
-    }
-
-    .badge-img-container {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 0;
-        flex-shrink: 0;
-    }
-
-    .badge-img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .trophy-container {
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: var(--spacing-md);
-    }
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-weight: 600;
 }

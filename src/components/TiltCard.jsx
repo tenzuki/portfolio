@@ -1,64 +1,50 @@
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const TiltCard = ({ children, className }) => {
-  const ref = useRef(null);
-  
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+  const cardRef = useRef(null);
+  const rafId = useRef(null);
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
+    if (!cardRef.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
+    if (rafId.current) cancelAnimationFrame(rafId.current);
 
-    const width = rect.width;
-    const height = rect.height;
+    rafId.current = requestAnimationFrame(() => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+      const xPct = (x / rect.width - 0.5) * 2; // -1 to 1
+      const yPct = (y / rect.height - 0.5) * 2; // -1 to 1
 
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
+      const rotateX = -yPct * 7; // Max 7 deg
+      const rotateY = xPct * 7;  // Max 7 deg
 
-    x.set(xPct);
-    y.set(yPct);
+      cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-2px)`;
+    });
   };
 
   const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    if (cardRef.current) {
+      cardRef.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)";
+    }
   };
 
   return (
-    <motion.div
-      ref={ref}
+    <div
+      ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
       className={className}
+      style={{
+        transition: "transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease",
+        willChange: "transform"
+      }}
     >
-      <div
-        style={{
-          transform: "translateZ(50px)",
-          transformStyle: "preserve-3d",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {children}
-      </div>
-    </motion.div>
+      {children}
+    </div>
   );
 };
 

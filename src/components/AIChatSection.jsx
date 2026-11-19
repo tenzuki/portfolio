@@ -1,0 +1,331 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { 
+    Bot, 
+    Sparkles, 
+    Send, 
+    RotateCcw, 
+    Copy, 
+    Check, 
+    ArrowRight 
+} from 'lucide-react';
+import TiltCard from './TiltCard';
+import { sendChatMessage } from '../services/aiService.js';
+import './AIChatSection.css';
+
+// Lightweight in-page markdown renderer
+const FormattedMessage = ({ content }) => {
+    const lines = content.split('\n');
+
+    return (
+        <div className="formatted-text">
+            {lines.map((line, idx) => {
+                const trimmed = line.trim();
+                if (!trimmed) {
+                    return <div key={idx} style={{ height: '0.4rem' }} />;
+                }
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
+                    const text = trimmed.substring(2);
+                    return (
+                        <li key={idx} style={{ marginLeft: '1rem', listStyleType: 'disc' }}>
+                            <span dangerouslySetInnerHTML={{ __html: parseInline(text) }} />
+                        </li>
+                    );
+                }
+
+                return (
+                    <p key={idx} style={{ margin: '0.25rem 0' }}>
+                        <span dangerouslySetInnerHTML={{ __html: parseInline(trimmed) }} />
+                    </p>
+                );
+            })}
+        </div>
+    );
+};
+
+function parseInline(str) {
+    let html = str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: #64b5f6;">$1</a>');
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    return html;
+}
+
+const AIChatSection = () => {
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
+    });
+
+    const yTitle = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
+
+    const initialGreeting = {
+        role: 'assistant',
+        content: "Hello! I am **Parthiv's AI Assistant**. Ask me anything about his current work as **Full Stack Developer & Tech Lead at Bornov Technologies LLP**, his previous startup experience at **BezgoFresh**, his **15+ GitHub projects**, or his technical capabilities.",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    const [messages, setMessages] = useState([initialGreeting]);
+    const [input, setInput] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [copiedIndex, setCopiedIndex] = useState(null);
+
+    const messagesContainerRef = useRef(null);
+    const inputRef = useRef(null);
+
+    const suggestions = [
+        "What is Parthiv's current role at Bornov Technologies?",
+        "What systems did he build at BezgoFresh?",
+        "Tell me about his top GitHub projects and repositories",
+        "What are his core technical skills and stacks?",
+        "How can I get in touch with Parthiv?"
+    ];
+
+    // Scroll ONLY the internal messages container, NEVER the window/webpage
+    useEffect(() => {
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTo({
+                top: messagesContainerRef.current.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    }, [messages, loading]);
+
+    const handleSend = async (customText = null) => {
+        const textToSend = (customText || input).trim();
+        if (!textToSend || loading) return;
+
+        const userMsg = {
+            role: 'user',
+            content: textToSend,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
+        const updatedHistory = [...messages, userMsg];
+        setMessages(updatedHistory);
+        setInput('');
+        setLoading(true);
+
+        try {
+            const apiHistory = updatedHistory.map(m => ({
+                role: m.role,
+                content: m.content
+            }));
+
+            const result = await sendChatMessage(apiHistory);
+
+            setMessages(prev => [
+                ...prev,
+                {
+                    role: 'assistant',
+                    content: result.text,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                }
+            ]);
+        } catch (_err) {
+            setMessages(prev => [
+                ...prev,
+                {
+                    role: 'assistant',
+                    content: "I'm having a brief connection pause. Please feel free to reach out directly to Parthiv at parthiv.kp28@gmail.com!",
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                }
+            ]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        handleSend();
+    };
+
+    const handleReset = () => {
+        setMessages([
+            {
+                role: 'assistant',
+                content: "Conversation cleared. How can I assist you with Parthiv's background or projects today?",
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            }
+        ]);
+    };
+
+    const handleCopy = (text, index) => {
+        navigator.clipboard.writeText(text);
+        setCopiedIndex(index);
+        setTimeout(() => setCopiedIndex(null), 2000);
+    };
+
+    return (
+        <section id="ai-assistant" className="ai-section" ref={ref}>
+            <div className="section-container">
+                <motion.div
+                    style={{ y: yTitle }}
+                    className="section-header"
+                >
+                    <h2>INTELLIGENCE</h2>
+                    <p>INTERACTIVE PORTFOLIO ASSISTANT</p>
+                </motion.div>
+
+                <div className="ai-section-grid">
+                    {/* Left Column: Interactive Info Card */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8, type: "spring" }}
+                        className="ai-info-wrapper"
+                    >
+                        <TiltCard className="ai-info-card">
+                            <div className="ai-status-row">
+                                <div className="ai-avatar-badge">
+                                    <div className="ai-avatar-icon">
+                                        <Bot size={26} />
+                                    </div>
+                                    <div>
+                                        <h4 style={{ margin: 0, fontSize: '1.05rem', color: '#ffffff' }}>Parthiv AI</h4>
+                                        <span style={{ fontSize: '0.8rem', color: '#888888' }}>Official Assistant</span>
+                                    </div>
+                                </div>
+                                <div className="ai-pulse-pill">
+                                    <span className="pulse-circle" />
+                                    Active & Ready
+                                </div>
+                            </div>
+
+                            <h3 className="ai-info-title">Direct Answers in Real Time</h3>
+                            <p className="ai-info-desc">
+                                Inquire about Parthiv's engineering at Bornov Technologies, production applications at BezgoFresh, 15+ repositories, or his full-stack & AI expertise.
+                            </p>
+
+                            <div className="ai-suggestions-title">
+                                <Sparkles size={16} color="#64b5f6" /> Prompt Suggestions
+                            </div>
+
+                            <div className="ai-chips-list">
+                                {suggestions.map((query, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className="ai-prompt-chip"
+                                        onClick={() => handleSend(query)}
+                                    >
+                                        <span>{query}</span>
+                                        <ArrowRight size={16} className="chip-arrow" />
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="ai-features-row">
+                                <span className="ai-feat-tag">⚡ Instant Answers</span>
+                                <span className="ai-feat-tag">💼 Verified Background</span>
+                                <span className="ai-feat-tag">🚀 Production Proven</span>
+                            </div>
+                        </TiltCard>
+                    </motion.div>
+
+                    {/* Right Column: Solid Interactive Console Window */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8, type: "spring", delay: 0.2 }}
+                        className="ai-console-wrapper"
+                    >
+                        <div className="ai-console">
+                            {/* Top Bar */}
+                            <div className="console-topbar">
+                                <div className="console-dots">
+                                    <span className="dot dot-red" />
+                                    <span className="dot dot-yellow" />
+                                    <span className="dot dot-green" />
+                                </div>
+                                <div className="console-title-wrap">
+                                    <Sparkles size={16} color="#64b5f6" />
+                                    <span>Live Portfolio Assistant</span>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="console-reset-btn"
+                                    onClick={handleReset}
+                                    title="Clear conversation"
+                                >
+                                    <RotateCcw size={14} /> Clear
+                                </button>
+                            </div>
+
+                            {/* Messages Scroll View */}
+                            <div className="console-messages" ref={messagesContainerRef}>
+                                {messages.map((msg, index) => (
+                                    <div key={index} className={`c-msg c-msg-${msg.role}`}>
+                                        <div className="c-bubble">
+                                            <FormattedMessage content={msg.content} />
+                                        </div>
+                                        <div className="c-msg-meta">
+                                            <span>{msg.timestamp}</span>
+                                            {msg.role === 'assistant' && (
+                                                <button
+                                                    type="button"
+                                                    style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 0, marginLeft: '6px' }}
+                                                    onClick={() => handleCopy(msg.content, index)}
+                                                    title="Copy response"
+                                                >
+                                                    {copiedIndex === index ? <Check size={12} color="#00ff88" /> : <Copy size={12} />}
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {loading && (
+                                    <div className="c-msg c-msg-assistant">
+                                        <div className="c-bubble c-typing-bubble">
+                                            <div className="c-dot" />
+                                            <div className="c-dot" />
+                                            <div className="c-dot" />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Native Form Input Bar */}
+                            <form className="console-input-bar" onSubmit={handleSubmit}>
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    className="c-input"
+                                    placeholder="Ask anything about Parthiv..."
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    disabled={loading}
+                                />
+                                <button
+                                    type="submit"
+                                    className="c-send-btn"
+                                    disabled={!input.trim() || loading}
+                                    title="Send Message"
+                                    aria-label="Send Message"
+                                >
+                                    <Send size={18} />
+                                </button>
+                            </form>
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default AIChatSection;

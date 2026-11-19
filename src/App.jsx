@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useScroll, useMotionValue } from 'framer-motion';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
@@ -7,6 +7,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import GithubAchievements from './components/GithubAchievements';
+import AIChatSection from './components/AIChatSection';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import ThreeDBackground from './components/ThreeDBackground';
@@ -15,40 +16,48 @@ import './App.css';
 
 function App() {
   const { scrollYProgress } = useScroll();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(-500);
+  const mouseY = useMotionValue(-500);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
+    // High-performance smooth scroll with Lenis
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
       mouseMultiplier: 1,
       smoothTouch: false,
-      touchMultiplier: 2,
     });
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
-    // Track mouse for cinematic glow without causing React re-renders
+    // Throttled mouse glow tracking
+    let ticking = false;
     const handleMouseMove = (e) => {
-      mouseX.set(e.clientX - 400);
-      mouseY.set(e.clientY - 400);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          mouseX.set(e.clientX - 250);
+          mouseY.set(e.clientY - 250);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <div className="app">
@@ -57,7 +66,7 @@ function App() {
       {/* Cinematic Vignette Overlay */}
       <div className="vignette-overlay" />
       
-      {/* Dynamic Mouse Glow */}
+      {/* Hardware-accelerated Mouse Glow */}
       <motion.div
         className="mouse-glow"
         style={{
@@ -83,6 +92,7 @@ function App() {
           <Experience />
           <Projects />
           <GithubAchievements />
+          <AIChatSection />
           <Certifications />
           <Contact />
         </main>

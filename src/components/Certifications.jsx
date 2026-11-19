@@ -53,7 +53,7 @@ const Certifications = () => {
                         className="cert-image-wrapper"
                     >
                         <TiltCard className="cert-photo-card">
-                            <img src="/assets/photo2.jpg" alt="Professional Profile" className="cert-img" />
+                            <img src="/assets/photo2.jpg" alt="Professional Profile" className="cert-img" loading="lazy" decoding="async" />
                         </TiltCard>
                     </motion.div>
                     
@@ -67,7 +67,13 @@ const Certifications = () => {
                                 transition={{ duration: 0.8, delay: index * 0.2, type: "spring" }}
                                 className="cert-wrapper"
                             >
-                                <a href={doc.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'flex', width: '100%' }}>
+                                <a 
+                                    href={doc.link} 
+                                    download={doc.download} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    style={{ textDecoration: 'none', display: 'flex', width: '100%' }}
+                                >
                                     <TiltCard className="cert-card">
                                         <div className="cert-icon-wrapper">
                                             {doc.icon}

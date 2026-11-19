@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight, Github, Sparkles } from 'lucide-react';
 
 import './Hero.css';
 
@@ -75,9 +75,9 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.5, duration: 0.8 }}
                 >
-                    Tech Lead @ BezgoFresh. <br/>
-                    Forging ultra-modern experiences with <span className="highlight">Python</span>,
-                    <span className="highlight"> Vision</span>, and <span className="highlight">AI</span>.
+                    Full Stack Developer & Tech Lead @ Bornov Technologies LLP. <br/>
+                    Engineering ultra-modern experiences with <span className="highlight">Flutter</span>,
+                    <span className="highlight"> Full Stack</span>, and <span className="highlight">AI/Vision</span>.
                 </motion.p>
 
                 <motion.div
@@ -88,6 +88,13 @@ const Hero = () => {
                 >
                     <a href="#projects" className="btn btn-primary">
                         View Projects <ArrowRight size={18} />
+                    </a>
+                    <a 
+                        href="#ai-assistant" 
+                        className="btn btn-secondary" 
+                        style={{ cursor: 'pointer', fontFamily: 'inherit' }}
+                    >
+                        <Sparkles size={18} color="#64b5f6" /> Ask AI
                     </a>
                     <a href="https://github.com/tenzuki" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                         <Github size={18} /> GitHub

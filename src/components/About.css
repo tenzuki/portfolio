@@ -12,7 +12,7 @@
 
 .section-header {
     text-align: left;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
 }
 
 .section-header h2 {
@@ -40,12 +40,12 @@
 
 .about-grid {
     display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 2rem;
+    grid-template-columns: 3.2fr 2fr;
+    gap: 2.5rem;
     align-items: stretch;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
     .about {
         padding: 5rem 1rem;
     }
@@ -53,8 +53,7 @@
         grid-template-columns: 1fr;
     }
     .about-text-card {
-        padding: 2rem;
-        font-size: 1.25rem;
+        padding: 2.5rem 1.75rem !important;
     }
     .about-image-wrapper {
         min-height: 400px;
@@ -67,47 +66,114 @@
 
 .about-text-card {
     background: var(--card-bg);
-    padding: 4rem;
-    border-radius: 20px;
+    padding: 3.5rem;
+    border-radius: 24px;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    font-size: 1.5rem;
     color: var(--text-secondary);
     line-height: 1.8;
-    font-weight: 300;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.about-text-card h3 {
-    font-size: 2rem;
+.about-text-card:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.story-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    background: rgba(100, 181, 246, 0.1);
+    border: 1px solid rgba(100, 181, 246, 0.3);
+    color: #64b5f6;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    align-self: flex-start;
+}
+
+.story-hook-title {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 900;
     color: var(--text-primary);
-    margin-bottom: 2rem;
+    line-height: 1.25;
+    margin-bottom: 1.75rem;
     letter-spacing: -0.02em;
-    text-transform: uppercase;
 }
 
-.about-text-card p {
-    margin-bottom: 2rem;
+.story-lead-para {
+    font-size: 1.2rem;
+    color: #d1d5db;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
 }
 
-.about-text-card p:last-child {
-    margin-bottom: 0;
+.story-para {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
 }
 
 .highlight-text {
-    color: var(--text-primary);
-    font-weight: 600;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Quick Story Milestones Row */
+.story-impact-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 600px) {
+    .story-impact-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.story-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.story-stat-number {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+}
+
+.story-stat-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .about-image-wrapper {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     border: 1px solid var(--border-color);
     position: relative;
@@ -118,48 +184,44 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: grayscale(80%) contrast(1.2);
+    filter: grayscale(70%) contrast(1.15);
     transition: filter 0.5s ease, transform 0.5s ease;
 }
 
 .about-image-wrapper:hover .profile-img {
     filter: grayscale(0%) contrast(1.1);
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
+/* 4 Story Capabilities Grid */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .skill-wrapper {
     display: flex;
 }
 
-.skill-0, .skill-1, .skill-2 {
-    grid-column: span 4;
-}
-
-.skill-3, .skill-4 {
-    grid-column: span 6;
-}
-
-@media (max-width: 900px) {
-    .skill-0, .skill-1, .skill-2, .skill-3, .skill-4 {
-        grid-column: span 12;
-    }
-    .skill-card {
-        padding: 2rem;
-    }
-}
-
 .skill-card {
     background: var(--card-bg);
-    padding: 3rem;
+    padding: 2.5rem 2rem;
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     width: 100%;
@@ -171,29 +233,40 @@
 .skill-card:hover {
     border-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
 }
 
 .skill-icon {
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-    padding: 1rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    padding: 0.9rem;
     background: rgba(255, 255, 255, 0.05);
     display: inline-flex;
-    border-radius: 16px;
+    border-radius: 14px;
     border: 1px solid var(--border-color);
+    align-self: flex-start;
+}
+
+.skill-step-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #64b5f6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
 }
 
 .skill-card h3 {
-    font-size: 1.75rem;
+    font-size: 1.35rem;
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     color: var(--text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .skill-card p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 0.92rem;
     line-height: 1.6;
     font-weight: 300;
 }
