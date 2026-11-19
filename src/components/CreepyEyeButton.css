@@ -1,9 +1,9 @@
 /* Creepy Eye Button Component - Inspired by Coding Stella */
 .creepy-btn {
     --creepy-bg: #09090b;
-    --creepy-cover-bg: #18181b;
-    --creepy-cover-text: #ffffff;
-    --creepy-border: rgba(255, 255, 255, 0.15);
+    --creepy-cover-bg: #ffffff;
+    --creepy-cover-text: #000000;
+    --creepy-border: rgba(255, 255, 255, 0.4);
     --creepy-accent: #64b5f6;
     --creepy-eye-bg: #f8fafc;
     --creepy-pupil-bg: #09090b;
@@ -18,7 +18,7 @@
     color: var(--creepy-cover-text);
     cursor: pointer;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.04em;
     min-width: 160px;
     height: 48px;
@@ -33,8 +33,8 @@
 }
 
 .creepy-btn:hover {
-    border-color: rgba(100, 181, 246, 0.5);
-    box-shadow: 0 0 20px rgba(100, 181, 246, 0.25);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
 }
 
 /* SIZES */
@@ -72,41 +72,44 @@
     right: 8px;
 }
 
-/* VARIANTS */
+/* ALL VARIANTS FILLED WITH SOLID WHITE SO EYES ARE 100% OPAQUE AND HIDDEN UNTIL HOVER */
 .creepy-btn--primary {
     --creepy-cover-bg: #ffffff;
     --creepy-cover-text: #000000;
     --creepy-accent: #64b5f6;
-    --creepy-border: rgba(255, 255, 255, 0.3);
+    --creepy-border: rgba(255, 255, 255, 0.5);
 }
 
 .creepy-btn--secondary {
-    --creepy-cover-bg: rgba(255, 255, 255, 0.06);
-    --creepy-cover-text: #ffffff;
-    --creepy-border: rgba(255, 255, 255, 0.15);
+    --creepy-cover-bg: #ffffff;
+    --creepy-cover-text: #000000;
+    --creepy-border: rgba(255, 255, 255, 0.4);
     --creepy-accent: #64b5f6;
 }
 
-.creepy-btn--secondary:hover .creepy-btn__cover {
-    --creepy-cover-bg: rgba(255, 255, 255, 0.12);
+.creepy-btn--secondary:hover .creepy-btn__cover,
+.creepy-btn--primary:hover .creepy-btn__cover,
+.creepy-btn--dark:hover .creepy-btn__cover,
+.creepy-btn--nav:hover .creepy-btn__cover {
+    background-color: #f4f4f5;
 }
 
 .creepy-btn--accent {
-    --creepy-cover-bg: linear-gradient(135deg, #00ff88 0%, #64b5f6 100%);
+    --creepy-cover-bg: #ffffff;
     --creepy-cover-text: #000000;
     --creepy-accent: #00ff88;
 }
 
 .creepy-btn--dark {
-    --creepy-cover-bg: #18181b;
-    --creepy-cover-text: #ffffff;
+    --creepy-cover-bg: #ffffff;
+    --creepy-cover-text: #000000;
     --creepy-accent: #64b5f6;
 }
 
 .creepy-btn--nav {
-    --creepy-cover-bg: rgba(255, 255, 255, 0.08);
-    --creepy-cover-text: #ffffff;
-    --creepy-border: rgba(255, 255, 255, 0.2);
+    --creepy-cover-bg: #ffffff;
+    --creepy-cover-text: #000000;
+    --creepy-border: rgba(255, 255, 255, 0.4);
     --creepy-accent: #64b5f6;
     min-width: 110px;
     height: 36px;
@@ -122,7 +125,7 @@
     pointer-events: none;
 }
 
-/* Hatch cover that rotates on hover */
+/* Hatch cover that rotates on hover - 100% OPAQUE SOLID WHITE */
 .creepy-btn__cover {
     position: relative;
     z-index: 2;
@@ -133,11 +136,18 @@
     width: 100%;
     height: 100%;
     padding: 0 1.25rem;
-    background: var(--creepy-cover-bg);
-    color: var(--creepy-cover-text);
+    background-color: #ffffff !important;
+    color: #000000 !important;
     border-radius: inherit;
     transform-origin: 18px 50%;
-    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1.5), background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1.5), background-color 0.2s ease;
+    opacity: 1 !important;
+}
+
+.creepy-btn__cover svg {
+    color: #000000;
+    flex-shrink: 0;
 }
 
 /* Hover rotation opens the hatch to reveal the eyes */
@@ -228,3 +238,4 @@
         height: 1px;
     }
 }
+
