@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { motion, useScroll, useMotionValue } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useMotionValue, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
+import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -15,9 +16,19 @@ import CustomCursor from './components/CustomCursor';
 import './App.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const { scrollYProgress } = useScroll();
   const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      window.scrollTo(0, 0);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     // High-performance smooth scroll with Lenis
@@ -61,6 +72,12 @@ function App() {
 
   return (
     <div className="app">
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <SplashScreen onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
       <CustomCursor />
       
       {/* Cinematic Vignette Overlay */}

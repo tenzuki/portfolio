@@ -217,8 +217,8 @@ const AIChatSection = () => {
                         <TiltCard className="ai-info-card">
                             <div className="ai-status-row">
                                 <div className="ai-avatar-badge">
-                                    <div className="ai-avatar-icon">
-                                        <Bot size={26} />
+                                    <div className="ai-avatar-icon" style={{ padding: 0, overflow: 'hidden', border: '1px solid rgba(100, 181, 246, 0.4)' }}>
+                                        <img src="/assets/logo.png" alt="Parthiv AI" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
                                     </div>
                                     <div>
                                         <h4 style={{ margin: 0, fontSize: '1.05rem', color: '#ffffff' }}>Parthiv AI</h4>

@@ -13,7 +13,13 @@ const Navbar = () => {
       className="navbar"
     >
       <div className="navbar-container">
-        <a href="#" className="logo">Parthiv K.</a>
+        <a href="#" className="logo">
+          <div className="logo-avatar-wrap">
+            <img src="/assets/logo.png" alt="Parthiv K Avatar" className="logo-avatar" />
+            <span className="logo-status-dot" title="Available for opportunities" />
+          </div>
+          <span className="logo-text">Parthiv K.</span>
+        </a>
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>

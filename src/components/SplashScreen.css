@@ -1,0 +1,399 @@
+/* Splash / Loading Screen Component */
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #030305;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* Background Cyber Grid & Glow */
+.splash-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.splash-ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(100, 181, 246, 0.15) 0%, rgba(0, 255, 136, 0.08) 40%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    filter: blur(40px);
+}
+
+/* Skip Button */
+.splash-skip-wrap {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10;
+}
+
+.splash-skip-btn {
+    min-width: 120px;
+    height: 38px;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Core Container */
+.splash-core-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 580px;
+    padding: 1.5rem;
+}
+
+/* Holographic Avatar Portal */
+.splash-avatar-portal {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.portal-avatar-frame {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 3px;
+    background: linear-gradient(135deg, #64b5f6, #00ff88);
+    box-shadow: 0 0 35px rgba(100, 181, 246, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.6);
+    z-index: 3;
+}
+
+.portal-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #111218;
+}
+
+/* Concentric Cyber Rings */
+.portal-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.portal-ring-outer {
+    width: 145px;
+    height: 145px;
+    border: 1.5px dashed rgba(100, 181, 246, 0.4);
+    animation: portal-spin 12s linear infinite;
+}
+
+.portal-ring-inner {
+    width: 128px;
+    height: 128px;
+    border: 1px dotted rgba(0, 255, 136, 0.4);
+    animation: portal-spin-reverse 8s linear infinite;
+}
+
+@keyframes portal-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes portal-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+/* Scanning Light Beam */
+.portal-scanning-beam {
+    position: absolute;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+    box-shadow: 0 0 10px #00ff88;
+    z-index: 4;
+    animation: portal-scan 2.2s infinite ease-in-out;
+}
+
+@keyframes portal-scan {
+    0%, 100% { top: 25px; opacity: 0; }
+    50% { top: 125px; opacity: 1; }
+}
+
+.portal-status-badge {
+    position: absolute;
+    bottom: -8px;
+    z-index: 5;
+    background: rgba(14, 15, 20, 0.95);
+    border: 1px solid rgba(100, 181, 246, 0.4);
+    border-radius: 9999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #64b5f6;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.portal-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 6px #00ff88;
+    animation: live-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes live-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Titles */
+.splash-titles {
+    text-align: center;
+    margin-bottom: 2.25rem;
+}
+
+.splash-name {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    margin: 0 0 0.4rem 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.splash-role {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #94a3b8;
+    margin: 0 0 0.4rem 0;
+    text-transform: uppercase;
+}
+
+.splash-corp-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #64b5f6;
+}
+
+/* Progress Station & Popups */
+.splash-progress-station {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Milestone Popup that floats above the bar */
+.milestone-popup-anchor {
+    width: 100%;
+    height: 90px;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.milestone-card {
+    width: 100%;
+    background: rgba(18, 20, 26, 0.9);
+    border: 1px solid rgba(100, 181, 246, 0.3);
+    border-radius: 16px;
+    padding: 0.85rem 1.15rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(100, 181, 246, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.milestone-icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.milestone-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.milestone-tag-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.15rem;
+}
+
+.milestone-tag {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #64b5f6;
+    text-transform: uppercase;
+}
+
+.milestone-pct {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #00ff88;
+}
+
+.milestone-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.1rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.milestone-detail {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Loading Bar Track */
+.splash-track-wrap {
+    width: 100%;
+}
+
+.splash-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.splash-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #64b5f6 0%, #00ff88 100%);
+    border-radius: 9999px;
+    position: relative;
+    box-shadow: 0 0 16px rgba(0, 255, 136, 0.7);
+    transition: width 0.04s linear;
+}
+
+.splash-fill-glow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffffff, 0 0 20px #00ff88;
+}
+
+/* Metrics Row */
+.splash-metrics-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.85rem;
+    font-size: 0.72rem;
+    color: #64748b;
+    font-family: 'SF Mono', monospace;
+    letter-spacing: 0.06em;
+}
+
+.metrics-left {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+}
+
+.metrics-right {
+    display: flex;
+    align-items: baseline;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.counter-num {
+    font-size: 1.15rem;
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.counter-pct {
+    font-size: 0.8rem;
+    color: #64b5f6;
+    margin-left: 1px;
+}
+
+/* Footer */
+.splash-footer {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: #475569;
+    font-family: 'SF Mono', monospace;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+@media (max-width: 640px) {
+    .splash-name {
+        font-size: 2rem;
+    }
+    .splash-skip-wrap {
+        top: 1rem;
+        right: 1rem;
+    }
+    .milestone-popup-anchor {
+        height: 100px;
+    }
+    .milestone-title, .milestone-detail {
+        white-space: normal;
+    }
+}
