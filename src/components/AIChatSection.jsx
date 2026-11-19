@@ -270,7 +270,7 @@ const AIChatSection = () => {
                         transition={{ duration: 0.8, type: "spring", delay: 0.2 }}
                         className="ai-console-wrapper"
                     >
-                        <div className="ai-console">
+                        <div className="ai-console" data-lenis-prevent="true">
                             {/* Top Bar */}
                             <div className="console-topbar">
                                 <div className="console-dots">
@@ -293,7 +293,7 @@ const AIChatSection = () => {
                             </div>
 
                             {/* Messages Scroll View */}
-                            <div className="console-messages" ref={messagesContainerRef}>
+                            <div className="console-messages" ref={messagesContainerRef} data-lenis-prevent="true">
                                 {messages.map((msg, index) => (
                                     <div key={index} className={`c-msg c-msg-${msg.role}`}>
                                         <div className="c-bubble">
@@ -327,7 +327,11 @@ const AIChatSection = () => {
                             </div>
 
                             {/* Native Form Input Bar */}
-                            <form className="console-input-bar" onSubmit={handleSubmit}>
+                            <form 
+                                className="console-input-bar" 
+                                onSubmit={handleSubmit} 
+                                data-lenis-prevent="true"
+                            >
                                 <input
                                     ref={inputRef}
                                     type="text"
@@ -335,17 +339,29 @@ const AIChatSection = () => {
                                     placeholder="Ask anything about Parthiv..."
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleSend();
+                                        }
+                                    }}
                                     disabled={loading}
                                 />
                                 <CreepyEyeButton
-                                    type="submit"
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleSend();
+                                    }}
                                     variant="primary"
                                     size="icon"
                                     disabled={!input.trim() || loading}
                                     title="Send Message"
                                     aria-label="Send Message"
                                 >
-                                    <Send size={18} />
+                                    <Send size={18} color="#000000" />
                                 </CreepyEyeButton>
                             </form>
                         </div>

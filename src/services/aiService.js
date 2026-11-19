@@ -5,11 +5,12 @@ const OPENROUTER_API_KEY =
 
 const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 
-// Curated list of reliable free models on OpenRouter
+// Curated list of reliable, high-capacity free models on OpenRouter
 export const AVAILABLE_FREE_MODELS = [
-    { id: 'nvidia/nemotron-3.5-lightning:free', name: 'Nvidia Nemotron 3.5 Lightning (Free)' },
-    { id: 'liquid/lfm-3-1.7b:free', name: 'Liquid LFM 3 (Free)' },
     { id: 'cohere/north-mini-code:free', name: 'Cohere North Mini (Free)' },
+    { id: 'liquid/lfm-3-1.7b:free', name: 'Liquid LFM 3 (Free)' },
+    { id: 'nvidia/nemotron-3.5-lightning:free', name: 'Nvidia Nemotron 3.5 Lightning (Free)' },
+    { id: 'google/gemma-4-31b-it:free', name: 'Google Gemma 4 31B (Free)' },
     { id: 'nvidia/nemotron-3.5-super-vl:free', name: 'Nvidia Nemotron 3.5 Super (Free)' },
     { id: 'dots-studio/dots-3-note-preview:free', name: 'Dots 3 Note (Free)' }
 ];
@@ -165,8 +166,20 @@ export async function sendChatMessage(conversationHistory, preferredModel = null
             const reply = choice?.message?.content || choice?.message?.reasoning;
 
             if (reply && reply.trim().length > 0) {
+                const trimmedReply = reply.trim();
+                // Check if output was prematurely cut off by token exhaustion or abrupt trailing punctuation
+                const isTruncated = 
+                    choice?.finish_reason === 'length' || 
+                    (trimmedReply.length > 40 && /[,\-:(]$/.test(trimmedReply));
+
+                if (isTruncated) {
+                    console.warn(`Model ${modelId} truncated response (finish_reason: ${choice?.finish_reason}). Falling back to next model...`);
+                    lastError = new Error(`Model ${modelId} returned incomplete/truncated generation`);
+                    continue; // Seamlessly fall back to next model for a complete answer
+                }
+
                 return {
-                    text: reply.trim(),
+                    text: trimmedReply,
                     modelUsed: modelId
                 };
             }

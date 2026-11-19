@@ -146,7 +146,8 @@
 }
 
 .creepy-btn__cover svg {
-    color: #000000;
+    color: #000000 !important;
+    stroke: #000000 !important;
     flex-shrink: 0;
 }
 

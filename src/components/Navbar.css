@@ -20,15 +20,11 @@
     padding: 0 2rem;
 }
 
-/* Brand Identity with Avatar Logo */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 900;
-    color: #ffffff;
-    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
     transition: transform 0.3s ease;
@@ -36,51 +32,6 @@
 
 .logo:hover {
     transform: scale(1.03);
-}
-
-.logo-avatar-wrap {
-    position: relative;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(100, 181, 246, 0.85), rgba(0, 255, 136, 0.65));
-    box-shadow: 0 0 16px rgba(100, 181, 246, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.3s ease;
-}
-
-.logo:hover .logo-avatar-wrap {
-    box-shadow: 0 0 24px rgba(0, 255, 136, 0.6);
-}
-
-.logo-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #181920;
-    display: block;
-}
-
-.logo-status-dot {
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 10px;
-    height: 10px;
-    background: #00ff88;
-    border: 2px solid #030303;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ff88;
-}
-
-.logo-text {
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: 0.06em;
 }
 
 /* Nav Links */
@@ -120,8 +71,8 @@
     .navbar-container {
         padding: 0 1.25rem;
     }
-    .logo-text {
-        display: none;
+    .logo {
+        font-size: 1.25rem;
     }
     .nav-links {
         gap: 0.85rem;

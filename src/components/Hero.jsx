@@ -91,7 +91,7 @@ const Hero = () => {
                         View Projects <ArrowRight size={18} />
                     </CreepyEyeButton>
                     <CreepyEyeButton href="#ai-assistant" variant="secondary" size="md">
-                        <Sparkles size={18} color="#64b5f6" /> Ask AI
+                        <Sparkles size={18} color="#000000" /> Ask AI
                     </CreepyEyeButton>
                     <CreepyEyeButton href="https://github.com/tenzuki" target="_blank" rel="noopener noreferrer" variant="secondary" size="md">
                         <Github size={18} /> GitHub
