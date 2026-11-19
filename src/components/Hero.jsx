@@ -87,19 +87,15 @@ const Hero = () => {
                     transition={{ duration: 1, delay: 1.8, ease: "easeOut" }}
                     className="hero-actions"
                 >
-                    <CreepyEyeButton href="#projects" variant="primary">
+                    <CreepyEyeButton href="#projects" variant="primary" size="md">
                         View Projects <ArrowRight size={18} />
                     </CreepyEyeButton>
-                    <a 
-                        href="#ai-assistant" 
-                        className="btn btn-secondary" 
-                        style={{ cursor: 'pointer', fontFamily: 'inherit' }}
-                    >
+                    <CreepyEyeButton href="#ai-assistant" variant="secondary" size="md">
                         <Sparkles size={18} color="#64b5f6" /> Ask AI
-                    </a>
-                    <a href="https://github.com/tenzuki" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                    </CreepyEyeButton>
+                    <CreepyEyeButton href="https://github.com/tenzuki" target="_blank" rel="noopener noreferrer" variant="secondary" size="md">
                         <Github size={18} /> GitHub
-                    </a>
+                    </CreepyEyeButton>
                 </motion.div>
             </div>
         </section>

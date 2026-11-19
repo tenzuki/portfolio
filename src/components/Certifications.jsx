@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Award, FileText, ExternalLink } from 'lucide-react';
 import TiltCard from './TiltCard';
+import CreepyEyeButton from './CreepyEyeButton';
 
 import './Certifications.css';
 
@@ -83,9 +84,17 @@ const Certifications = () => {
                                             <p className="cert-desc">{doc.desc}</p>
                                             
                                             <div className="cert-action">
-                                                <div className="btn btn-secondary cert-btn">
+                                                <CreepyEyeButton 
+                                                    href={doc.link}
+                                                    download={doc.download}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    variant="secondary"
+                                                    size="sm"
+                                                    className="cert-creepy-btn"
+                                                >
                                                     {doc.actionText} <ExternalLink size={16} />
-                                                </div>
+                                                </CreepyEyeButton>
                                             </div>
                                         </div>
                                     </TiltCard>

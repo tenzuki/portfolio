@@ -20,7 +20,7 @@
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    min-width: 170px;
+    min-width: 160px;
     height: 48px;
     padding: 0;
     text-decoration: none;
@@ -29,6 +29,7 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     -webkit-tap-highlight-color: transparent;
+    font-family: inherit;
 }
 
 .creepy-btn:hover {
@@ -36,10 +37,58 @@
     box-shadow: 0 0 20px rgba(100, 181, 246, 0.25);
 }
 
+/* SIZES */
+.creepy-btn--sm {
+    min-width: 120px;
+    height: 38px;
+    font-size: 0.82rem;
+}
+
+.creepy-btn--md {
+    min-width: 160px;
+    height: 48px;
+    font-size: 0.95rem;
+}
+
+.creepy-btn--lg {
+    min-width: 200px;
+    height: 54px;
+    font-size: 1.05rem;
+}
+
+.creepy-btn--icon {
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.creepy-btn--icon .creepy-btn__cover {
+    padding: 0;
+}
+
+.creepy-btn--icon .creepy-btn__eyes {
+    right: 8px;
+}
+
+/* VARIANTS */
 .creepy-btn--primary {
     --creepy-cover-bg: #ffffff;
     --creepy-cover-text: #000000;
     --creepy-accent: #64b5f6;
+    --creepy-border: rgba(255, 255, 255, 0.3);
+}
+
+.creepy-btn--secondary {
+    --creepy-cover-bg: rgba(255, 255, 255, 0.06);
+    --creepy-cover-text: #ffffff;
+    --creepy-border: rgba(255, 255, 255, 0.15);
+    --creepy-accent: #64b5f6;
+}
+
+.creepy-btn--secondary:hover .creepy-btn__cover {
+    --creepy-cover-bg: rgba(255, 255, 255, 0.12);
 }
 
 .creepy-btn--accent {
@@ -49,9 +98,28 @@
 }
 
 .creepy-btn--dark {
-    --creepy-cover-bg: #1f1f23;
+    --creepy-cover-bg: #18181b;
     --creepy-cover-text: #ffffff;
     --creepy-accent: #64b5f6;
+}
+
+.creepy-btn--nav {
+    --creepy-cover-bg: rgba(255, 255, 255, 0.08);
+    --creepy-cover-text: #ffffff;
+    --creepy-border: rgba(255, 255, 255, 0.2);
+    --creepy-accent: #64b5f6;
+    min-width: 110px;
+    height: 36px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Disabled */
+.creepy-btn--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* Hatch cover that rotates on hover */
@@ -64,11 +132,11 @@
     gap: 0.5rem;
     width: 100%;
     height: 100%;
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
     background: var(--creepy-cover-bg);
     color: var(--creepy-cover-text);
     border-radius: inherit;
-    transform-origin: 20px 50%;
+    transform-origin: 18px 50%;
     transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1.5), background-color 0.3s ease;
 }
 
@@ -85,14 +153,20 @@
 /* Eyes Container */
 .creepy-btn__eyes {
     position: absolute;
-    right: 18px;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     z-index: 1;
     pointer-events: none;
+}
+
+.creepy-btn--sm .creepy-btn__eyes,
+.creepy-btn--nav .creepy-btn__eyes {
+    right: 10px;
+    gap: 3px;
 }
 
 /* Individual Eye */
@@ -107,6 +181,12 @@
     animation: creepy-eye-blink 3.5s infinite;
 }
 
+.creepy-btn--sm .creepy-btn__eye,
+.creepy-btn--nav .creepy-btn__eye {
+    width: 11px;
+    height: 11px;
+}
+
 /* Pupil that tracks cursor */
 .creepy-btn__pupil {
     position: absolute;
@@ -118,6 +198,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: transform 0.05s linear;
+}
+
+.creepy-btn--sm .creepy-btn__pupil,
+.creepy-btn--nav .creepy-btn__pupil {
+    width: 4.5px;
+    height: 4.5px;
 }
 
 /* Pupil shine highlight */

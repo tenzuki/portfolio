@@ -12,6 +12,7 @@ import {
     Building2
 } from 'lucide-react';
 import TiltCard from './TiltCard';
+import CreepyEyeButton from './CreepyEyeButton';
 import './GithubAchievements.css';
 
 const GithubAchievements = () => {
@@ -152,15 +153,17 @@ const GithubAchievements = () => {
                                         <div className="gh-subtitle">Live verified metrics & activity breakdown</div>
                                     </div>
                                 </div>
-                                <a 
+                                <CreepyEyeButton 
                                     href="https://github.com/tenzuki" 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
+                                    variant="secondary"
+                                    size="sm"
                                     className="gh-profile-btn"
                                 >
                                     <span>github.com/tenzuki</span>
-                                    <ExternalLink size={16} />
-                                </a>
+                                    <ExternalLink size={15} />
+                                </CreepyEyeButton>
                             </div>
 
                             <div className="gh-stats-grid">

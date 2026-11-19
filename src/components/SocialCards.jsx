@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Github, Linkedin, Mail, Instagram, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import CreepyEyeButton from './CreepyEyeButton';
 import './SocialCards.css';
 
 const SOCIAL_ITEMS = [
@@ -105,15 +106,17 @@ const SocialCards = () => {
                             <p className="card-desc">{item.desc}</p>
                         </div>
 
-                        <a 
+                        <CreepyEyeButton 
                             href={item.link} 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="card-action-btn"
+                            variant="secondary"
+                            size="sm"
+                            style={{ width: '100%', marginTop: 'auto' }}
                         >
                             <span>{item.actionText}</span>
                             <ArrowUpRight size={16} />
-                        </a>
+                        </CreepyEyeButton>
                     </div>
                 </div>
             ))}

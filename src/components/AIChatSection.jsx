@@ -10,6 +10,7 @@ import {
     ArrowRight 
 } from 'lucide-react';
 import TiltCard from './TiltCard';
+import CreepyEyeButton from './CreepyEyeButton';
 import { sendChatMessage } from '../services/aiService.js';
 import './AIChatSection.css';
 
@@ -281,14 +282,14 @@ const AIChatSection = () => {
                                     <Sparkles size={16} color="#64b5f6" />
                                     <span>Live Portfolio Assistant</span>
                                 </div>
-                                <button
-                                    type="button"
-                                    className="console-reset-btn"
+                                <CreepyEyeButton
                                     onClick={handleReset}
+                                    variant="dark"
+                                    size="sm"
                                     title="Clear conversation"
                                 >
-                                    <RotateCcw size={14} /> Clear
-                                </button>
+                                    <RotateCcw size={13} /> Clear
+                                </CreepyEyeButton>
                             </div>
 
                             {/* Messages Scroll View */}
@@ -336,15 +337,16 @@ const AIChatSection = () => {
                                     onChange={(e) => setInput(e.target.value)}
                                     disabled={loading}
                                 />
-                                <button
+                                <CreepyEyeButton
                                     type="submit"
-                                    className="c-send-btn"
+                                    variant="primary"
+                                    size="icon"
                                     disabled={!input.trim() || loading}
                                     title="Send Message"
                                     aria-label="Send Message"
                                 >
                                     <Send size={18} />
-                                </button>
+                                </CreepyEyeButton>
                             </form>
                         </div>
                     </motion.div>

@@ -5,10 +5,16 @@ const CreepyEyeButton = ({
     children, 
     onClick, 
     href,
+    type = 'button',
     className = '',
     variant = 'primary',
+    size = 'md',
     target,
-    rel
+    rel,
+    download,
+    disabled = false,
+    title,
+    style
 }) => {
     const btnRef = useRef(null);
     const eyesRef = useRef(null);
@@ -62,6 +68,8 @@ const CreepyEyeButton = ({
         </>
     );
 
+    const fullClassName = `creepy-btn creepy-btn--${variant} creepy-btn--${size} ${disabled ? 'creepy-btn--disabled' : ''} ${className}`;
+
     if (href) {
         return (
             <a 
@@ -70,7 +78,10 @@ const CreepyEyeButton = ({
                 onClick={onClick}
                 target={target}
                 rel={rel}
-                className={`creepy-btn creepy-btn--${variant} ${className}`}
+                download={download}
+                title={title}
+                style={style}
+                className={fullClassName}
             >
                 {content}
             </a>
@@ -80,9 +91,12 @@ const CreepyEyeButton = ({
     return (
         <button 
             ref={btnRef}
-            type="button" 
+            type={type} 
             onClick={onClick} 
-            className={`creepy-btn creepy-btn--${variant} ${className}`}
+            disabled={disabled}
+            title={title}
+            style={style}
+            className={fullClassName}
         >
             {content}
         </button>

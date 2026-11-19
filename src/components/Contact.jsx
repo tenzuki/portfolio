@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, Sparkles } from 'lucide-react';
 import CreepyEyeButton from './CreepyEyeButton';
 import SocialCards from './SocialCards';
-import GhostToggle from './GhostToggle';
 import './Contact.css';
 
 const Contact = () => {
@@ -28,10 +27,7 @@ const Contact = () => {
                     </div>
                     
                     <div className="contact-content">
-                        <div className="contact-badge-row">
-                            <span className="contact-overline">WHAT'S NEXT?</span>
-                            <GhostToggle label="Ghost Mode" />
-                        </div>
+                        <span className="contact-overline">WHAT'S NEXT?</span>
 
                         <h2 className="contact-title">Get In Touch</h2>
                         <p className="contact-desc">
@@ -42,6 +38,7 @@ const Contact = () => {
                             <CreepyEyeButton 
                                 href="mailto:parthiv.kp28@gmail.com" 
                                 variant="primary"
+                                size="lg"
                                 className="contact-creepy-btn"
                             >
                                 Say Hello <Mail size={18} />

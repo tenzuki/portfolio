@@ -71,15 +71,3 @@
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
 }
-
-.nav-ghost-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5rem;
-}
-
-@media (max-width: 900px) {
-    .nav-ghost-wrapper {
-        display: none;
-    }
-}

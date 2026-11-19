@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
-import GhostToggle from './GhostToggle';
+import CreepyEyeButton from './CreepyEyeButton';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -19,15 +19,17 @@ const Navbar = () => {
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
           <li>
-            <a href="#ai-assistant" className="nav-ai-btn" title="Chat with Parthiv's AI Assistant">
+            <CreepyEyeButton 
+              href="#ai-assistant" 
+              variant="nav" 
+              size="sm" 
+              title="Chat with Parthiv's AI Assistant"
+            >
               <Sparkles size={14} color="#64b5f6" /> Ask AI
-            </a>
+            </CreepyEyeButton>
           </li>
           <li><a href="#certifications">Resume</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li className="nav-ghost-wrapper">
-            <GhostToggle label="" />
-          </li>
         </ul>
       </div>
     </motion.nav>

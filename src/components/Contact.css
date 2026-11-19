@@ -145,13 +145,6 @@
     transform: translateY(-5px);
 }
 
-.contact-badge-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
 .contact-cta-row {
     display: flex;
     justify-content: center;
