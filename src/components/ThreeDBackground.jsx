@@ -12,48 +12,57 @@ const ThreeDBackground = () => {
         if (!containerRef.current) return;
         const container = containerRef.current;
 
-        // Constants matching the black hole physics
-        const BLACK_HOLE_RADIUS = 1.3;
+        // Black hole physics constants
+        const BLACK_HOLE_RADIUS = 1.35;
         const DISK_INNER_RADIUS = BLACK_HOLE_RADIUS + 0.2;
-        const DISK_OUTER_RADIUS = 8.0;
+        const DISK_OUTER_RADIUS = 8.5;
         const DISK_TILT_ANGLE = Math.PI / 3.0;
 
-        // Scene & Fog
+        // Scene & Atmospheric Space Fog
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x020104, 0.025);
+        scene.fog = new THREE.FogExp2(0x020104, 0.015);
 
         // Camera
         const camera = new THREE.PerspectiveCamera(
-            60, 
+            55, 
             window.innerWidth / window.innerHeight, 
             0.1, 
             4000
         );
-        camera.position.set(-6.5, 4.5, 6.5);
+        camera.position.set(-6.5, 4.8, 6.8);
+        camera.lookAt(0, 0, 0);
 
         // WebGL Renderer
         const renderer = new THREE.WebGLRenderer({ 
             antialias: true, 
             powerPreference: 'high-performance',
-            alpha: true
+            alpha: false
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setClearColor(0x020104, 1.0);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.2;
+        renderer.toneMappingExposure = 1.3;
+
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0';
+        renderer.domElement.style.width = '100%';
+        renderer.domElement.style.height = '100%';
+        renderer.domElement.style.display = 'block';
         container.appendChild(renderer.domElement);
 
         // Post-Processing Composer
         const composer = new EffectComposer(renderer);
         composer.addPass(new RenderPass(scene, camera));
 
-        // Unreal Bloom Pass
+        // Unreal Bloom Pass - Gives the accretion disk its celestial glow
         const bloomPass = new UnrealBloomPass(
             new THREE.Vector2(window.innerWidth, window.innerHeight),
-            0.85, 
-            0.7, 
-            0.8
+            1.0,  // strength
+            0.6,  // radius
+            0.75  // threshold
         );
         composer.addPass(bloomPass);
 
@@ -62,8 +71,8 @@ const ThreeDBackground = () => {
             uniforms: {
                 "tDiffuse": { value: null },
                 "blackHoleScreenPos": { value: new THREE.Vector2(0.5, 0.5) },
-                "lensingStrength": { value: 0.12 },
-                "lensingRadius": { value: 0.3 },
+                "lensingStrength": { value: 0.14 },
+                "lensingRadius": { value: 0.35 },
                 "aspectRatio": { value: window.innerWidth / window.innerHeight },
                 "chromaticAberration": { value: 0.005 }
             },
@@ -94,12 +103,13 @@ const ThreeDBackground = () => {
                     float falloff = smoothstep(lensingRadius, lensingRadius * 0.3, dist);
                     distortionAmount *= falloff;
                     
-                    vec2 offset = normalize(toCenter) * distortionAmount;
+                    // Strict zero guard to prevent NaN rendering artifacts
+                    vec2 offset = dist > 0.0001 ? (toCenter / dist) * distortionAmount : vec2(0.0);
                     offset.x /= aspectRatio;
                     
-                    vec2 distortedUvR = screenPos - offset * (1.0 + chromaticAberration);
-                    vec2 distortedUvG = screenPos - offset;
-                    vec2 distortedUvB = screenPos - offset * (1.0 - chromaticAberration);
+                    vec2 distortedUvR = clamp(screenPos - offset * (1.0 + chromaticAberration), 0.0, 1.0);
+                    vec2 distortedUvG = clamp(screenPos - offset, 0.0, 1.0);
+                    vec2 distortedUvB = clamp(screenPos - offset * (1.0 - chromaticAberration), 0.0, 1.0);
                     
                     float r = texture2D(tDiffuse, distortedUvR).r;
                     float g = texture2D(tDiffuse, distortedUvG).g;
@@ -114,35 +124,34 @@ const ThreeDBackground = () => {
 
         // 3D Twinkling Starfield
         const starGeometry = new THREE.BufferGeometry();
-        const starCount = 28000; // Balanced for 60fps performance across devices
+        const starCount = 28000;
         const starPositions = new Float32Array(starCount * 3);
         const starColors = new Float32Array(starCount * 3);
         const starSizes = new Float32Array(starCount);
         const starTwinkle = new Float32Array(starCount);
-        const starFieldRadius = 2000;
+        const starFieldRadius = 2200;
         const starPalette = [
-            new THREE.Color(0x88aaff), new THREE.Color(0xffaaff), new THREE.Color(0xaaffff),
-            new THREE.Color(0xffddaa), new THREE.Color(0xffeecc), new THREE.Color(0xffffff),
-            new THREE.Color(0xff8888), new THREE.Color(0x88ff88), new THREE.Color(0xffff88),
-            new THREE.Color(0x88ffff)
+            new THREE.Color(0x99bbff), new THREE.Color(0xffbbff), new THREE.Color(0xaaffff),
+            new THREE.Color(0xffeebb), new THREE.Color(0xffffff), new THREE.Color(0xff8888),
+            new THREE.Color(0xffff88), new THREE.Color(0x88ffff), new THREE.Color(0xddccff)
         ];
 
         for (let i = 0; i < starCount; i++) {
             const i3 = i * 3;
             const phi = Math.acos(-1 + (2 * i) / starCount);
             const theta = Math.sqrt(starCount * Math.PI) * phi;
-            const radius = Math.cbrt(Math.random()) * starFieldRadius + 100;
+            const radius = Math.cbrt(Math.random()) * starFieldRadius + 80;
 
             starPositions[i3] = radius * Math.sin(phi) * Math.cos(theta);
             starPositions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
             starPositions[i3 + 2] = radius * Math.cos(phi);
 
             const starColor = starPalette[Math.floor(Math.random() * starPalette.length)].clone();
-            starColor.multiplyScalar(Math.random() * 0.7 + 0.3);
+            starColor.multiplyScalar(Math.random() * 0.7 + 0.4);
             starColors[i3] = starColor.r; 
             starColors[i3 + 1] = starColor.g; 
             starColors[i3 + 2] = starColor.b;
-            starSizes[i] = THREE.MathUtils.randFloat(0.6, 2.8);
+            starSizes[i] = THREE.MathUtils.randFloat(0.8, 3.0);
             starTwinkle[i] = Math.random() * Math.PI * 2;
         }
         starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
@@ -168,7 +177,7 @@ const ThreeDBackground = () => {
                     vTwinkle = sin(uTime * 2.5 + twinkle) * 0.5 + 0.5;
                     
                     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                    gl_PointSize = size * uPixelRatio * (300.0 / -mvPosition.z);
+                    gl_PointSize = size * uPixelRatio * (320.0 / -mvPosition.z);
                     gl_Position = projectionMatrix * mvPosition;
                 }
             `,
@@ -181,7 +190,7 @@ const ThreeDBackground = () => {
                     if (dist > 0.5) discard;
                     
                     float alpha = 1.0 - smoothstep(0.0, 0.5, dist);
-                    alpha *= (0.2 + vTwinkle * 0.8);
+                    alpha *= (0.25 + vTwinkle * 0.75);
                     
                     gl_FragColor = vec4(vColor, alpha);
                 }
@@ -195,8 +204,8 @@ const ThreeDBackground = () => {
         const stars = new THREE.Points(starGeometry, starMaterial);
         scene.add(stars);
 
-        // Event Horizon Glow (Fresnel BackSide)
-        const eventHorizonGeom = new THREE.SphereGeometry(BLACK_HOLE_RADIUS * 1.05, 128, 64);
+        // Event Horizon Glow (BackSide Fresnel Halo)
+        const eventHorizonGeom = new THREE.SphereGeometry(BLACK_HOLE_RADIUS * 1.08, 128, 64);
         const eventHorizonMat = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0 },
@@ -220,12 +229,12 @@ const ThreeDBackground = () => {
                 void main() {
                     vec3 viewDirection = normalize(uCameraPosition - vPosition);
                     float fresnel = 1.0 - abs(dot(vNormal, viewDirection));
-                    fresnel = pow(fresnel, 2.5);
+                    fresnel = pow(fresnel, 2.2);
                     
-                    vec3 glowColor = vec3(1.0, 0.45, 0.15);
+                    vec3 glowColor = vec3(1.0, 0.55, 0.2);
                     float pulse = sin(uTime * 2.5) * 0.15 + 0.85;
                     
-                    gl_FragColor = vec4(glowColor * fresnel * pulse, fresnel * 0.45);
+                    gl_FragColor = vec4(glowColor * fresnel * pulse, fresnel * 0.55);
                 }
             `,
             transparent: true,
@@ -235,26 +244,27 @@ const ThreeDBackground = () => {
         const eventHorizon = new THREE.Mesh(eventHorizonGeom, eventHorizonMat);
         scene.add(eventHorizon);
 
-        // Black Hole Center Singularity Sphere
+        // Black Hole Central Singularity (Absolute Pitch Black Sphere)
         const blackHoleGeom = new THREE.SphereGeometry(BLACK_HOLE_RADIUS, 128, 64);
         const blackHoleMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        blackHoleMat.fog = false;
         const blackHoleMesh = new THREE.Mesh(blackHoleGeom, blackHoleMat);
         blackHoleMesh.renderOrder = 0;
         scene.add(blackHoleMesh);
 
-        // Accretion Disk with Procedural Simplex Noise
+        // Accretion Disk with Procedural Simplex Noise & Swirling Gas
         const diskGeometry = new THREE.RingGeometry(DISK_INNER_RADIUS, DISK_OUTER_RADIUS, 256, 128);
         const diskMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
                 uColorHot: { value: new THREE.Color(0xffffff) },
-                uColorMid1: { value: new THREE.Color(0xff7733) },
-                uColorMid2: { value: new THREE.Color(0xff4477) },
+                uColorMid1: { value: new THREE.Color(0xff8833) },
+                uColorMid2: { value: new THREE.Color(0xff3377) },
                 uColorMid3: { value: new THREE.Color(0x7744ff) },
-                uColorOuter: { value: new THREE.Color(0x4477ff) },
+                uColorOuter: { value: new THREE.Color(0x3366ff) },
                 uNoiseScale: { value: 2.5 },
-                uFlowSpeed: { value: 0.22 },
-                uDensity: { value: 1.3 }
+                uFlowSpeed: { value: 0.25 },
+                uDensity: { value: 1.4 }
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -331,13 +341,13 @@ const ThreeDBackground = () => {
                 }
 
                 void main() {
-                    float normalizedRadius = smoothstep(1.50, 8.00, vRadius);
+                    float normalizedRadius = smoothstep(1.50, 8.50, vRadius);
                     
                     float spiral = vAngle * 3.0 - (1.0 / (normalizedRadius + 0.1)) * 2.0;
                     vec2 noiseUv = vec2(vUv.x + uTime * uFlowSpeed * (2.0 / (vRadius * 0.3 + 1.0)) + sin(spiral) * 0.1, vUv.y * 0.8 + cos(spiral) * 0.1);
-                    float noiseVal1 = snoise(vec3(noiseUv * uNoiseScale, uTime * 0.15));
-                    float noiseVal2 = snoise(vec3(noiseUv * uNoiseScale * 3.0 + 0.8, uTime * 0.22));
-                    float noiseVal3 = snoise(vec3(noiseUv * uNoiseScale * 6.0 + 1.5, uTime * 0.3));
+                    float noiseVal1 = snoise(vec3(noiseUv * uNoiseScale, uTime * 0.18));
+                    float noiseVal2 = snoise(vec3(noiseUv * uNoiseScale * 3.0 + 0.8, uTime * 0.25));
+                    float noiseVal3 = snoise(vec3(noiseUv * uNoiseScale * 6.0 + 1.5, uTime * 0.35));
                     
                     float noiseVal = (noiseVal1 * 0.45 + noiseVal2 * 0.35 + noiseVal3 * 0.2);
                     noiseVal = (noiseVal + 1.0) * 0.5;
@@ -348,14 +358,14 @@ const ThreeDBackground = () => {
                     color = mix(color, uColorMid1, smoothstep(0.5, 0.75, normalizedRadius));
                     color = mix(color, uColorHot, smoothstep(0.7, 0.95, normalizedRadius));
                     
-                    color *= (0.5 + noiseVal * 1.0);
-                    float brightness = pow(1.0 - normalizedRadius, 1.0) * 3.5 + 0.5;
-                    brightness *= (0.3 + noiseVal * 2.2);
+                    color *= (0.55 + noiseVal * 0.95);
+                    float brightness = pow(1.0 - normalizedRadius, 1.0) * 3.8 + 0.6;
+                    brightness *= (0.35 + noiseVal * 2.2);
                     
                     float pulse = sin(uTime * 1.8 + normalizedRadius * 12.0 + vAngle * 2.0) * 0.15 + 0.85;
                     brightness *= pulse;
                     
-                    float alpha = uDensity * (0.2 + noiseVal * 0.9);
+                    float alpha = uDensity * (0.25 + noiseVal * 0.9);
                     alpha *= smoothstep(0.0, 0.15, normalizedRadius);
                     alpha *= (1.0 - smoothstep(0.85, 1.0, normalizedRadius));
                     alpha = clamp(alpha, 0.0, 1.0);
@@ -374,7 +384,7 @@ const ThreeDBackground = () => {
         accretionDisk.renderOrder = 1;
         scene.add(accretionDisk);
 
-        // Interactive mouse & scroll parallax response
+        // Mouse Parallax
         const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
         const handleMouseMove = (e) => {
             mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -382,14 +392,14 @@ const ThreeDBackground = () => {
         };
         window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-        // Scroll listener to smoothly glide the black hole perspective as user navigates
+        // Scroll Parallax
         let scrollY = window.scrollY;
         const handleScroll = () => {
             scrollY = window.scrollY;
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
 
-        // Resize handler with debounce
+        // Debounced Resize Listener
         let resizeTimeout;
         const handleResize = () => {
             clearTimeout(resizeTimeout);
@@ -407,19 +417,19 @@ const ThreeDBackground = () => {
         };
         window.addEventListener('resize', handleResize);
 
-        // Animation Loop
+        // High-Performance Animation Loop
         const clock = new THREE.Clock();
         const blackHoleScreenPosVec3 = new THREE.Vector3();
         let animationFrameId;
 
         const animate = () => {
             animationFrameId = requestAnimationFrame(animate);
+            const deltaTime = Math.min(clock.getDelta(), 0.1);
             const elapsedTime = clock.getElapsedTime();
-            const deltaTime = clock.getDelta();
 
             // Smooth mouse interpolation
-            mouse.x += (mouse.targetX - mouse.x) * 0.035;
-            mouse.y += (mouse.targetY - mouse.y) * 0.035;
+            mouse.x += (mouse.targetX - mouse.x) * 0.04;
+            mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
             // Update shader uniforms
             diskMaterial.uniforms.uTime.value = elapsedTime;
@@ -427,28 +437,28 @@ const ThreeDBackground = () => {
             eventHorizonMat.uniforms.uTime.value = elapsedTime;
             eventHorizonMat.uniforms.uCameraPosition.value.copy(camera.position);
 
-            // Project black hole 3D position to 2D screen UV for gravitational lensing
+            // Project black hole 3D center to 2D screen UV coordinates
             blackHoleScreenPosVec3.copy(blackHoleMesh.position).project(camera);
             lensingPass.uniforms.blackHoleScreenPos.value.set(
                 (blackHoleScreenPosVec3.x + 1) / 2,
                 (blackHoleScreenPosVec3.y + 1) / 2
             );
 
-            // Subtle camera orbit motion influenced by mouse & page scroll
+            // Dynamic camera parallax glide
             const scrollNorm = (scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1));
             const baseCamX = -6.5 + mouse.x * 1.5;
-            const baseCamY = 4.5 + mouse.y * 1.2 - scrollNorm * 2.0;
-            const baseCamZ = 6.5 + mouse.x * 0.5 + scrollNorm * 1.5;
+            const baseCamY = 4.8 + mouse.y * 1.2 - scrollNorm * 2.0;
+            const baseCamZ = 6.8 + mouse.x * 0.5 + scrollNorm * 1.5;
 
             camera.position.x += (baseCamX - camera.position.x) * 0.04;
             camera.position.y += (baseCamY - camera.position.y) * 0.04;
             camera.position.z += (baseCamZ - camera.position.z) * 0.04;
             camera.lookAt(0, 0, 0);
 
-            // Rotate starfield and accretion disk
-            stars.rotation.y += deltaTime * 0.003;
-            stars.rotation.x += deltaTime * 0.001;
-            accretionDisk.rotation.z += deltaTime * 0.015;
+            // Rotations
+            stars.rotation.y += deltaTime * 0.005;
+            stars.rotation.x += deltaTime * 0.002;
+            accretionDisk.rotation.z += deltaTime * 0.025;
 
             composer.render(deltaTime);
         };
@@ -489,10 +499,10 @@ const ThreeDBackground = () => {
                 left: 0,
                 width: '100vw',
                 height: '100vh',
-                zIndex: -1,
+                zIndex: 0,
                 pointerEvents: 'none',
-                background: 'radial-gradient(ellipse at center, #0a0a1a 0%, #000002 70%)',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                background: 'radial-gradient(ellipse at center, #0a0a1a 0%, #000002 70%)'
             }}
         />
     );

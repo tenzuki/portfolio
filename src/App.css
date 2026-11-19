@@ -1,3 +1,5 @@
+/* App.css - Clean Layering & High-Performance 3D Background Positioning */
+
 /* Smooth progress bar */
 .progress-bar {
   position: fixed;
@@ -5,13 +7,26 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--text-primary);
+  background: #ffffff;
   transform-origin: 0%;
   z-index: 9999;
-  box-shadow: 0 0 8px var(--text-primary);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   will-change: transform;
 }
 
+/* 3D Black Hole Background Layer - In Front of HTML/Body Background, Behind Content */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Cinematic Vignette Overlay */
 .vignette-overlay {
   position: fixed;
   top: 0;
@@ -19,10 +34,11 @@
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 35%, rgba(2, 2, 2, 0.85) 100%);
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 2, 0.75) 100%);
   z-index: 1;
 }
 
+/* Hardware-accelerated Subtle Mouse Glow */
 .mouse-glow {
   position: fixed;
   top: 0;
@@ -34,4 +50,10 @@
   z-index: 2;
   border-radius: 50%;
   will-change: transform;
+}
+
+/* Content Overlay Layer - Sits Above 3D Background & Vignette */
+.content-overlay {
+  position: relative;
+  z-index: 10;
 }
