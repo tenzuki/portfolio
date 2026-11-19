@@ -15,6 +15,7 @@ import './AIChatSection.css';
 
 // Lightweight in-page markdown renderer
 const FormattedMessage = ({ content }) => {
+    if (!content) return null;
     const lines = content.split('\n');
 
     return (
@@ -22,20 +23,45 @@ const FormattedMessage = ({ content }) => {
             {lines.map((line, idx) => {
                 const trimmed = line.trim();
                 if (!trimmed) {
-                    return <div key={idx} style={{ height: '0.4rem' }} />;
+                    return <div key={idx} style={{ height: '0.35rem' }} />;
+                }
+
+                if (trimmed.startsWith('### ')) {
+                    return (
+                        <h4 key={idx} style={{ margin: '0.75rem 0 0.25rem 0', color: '#64b5f6', fontSize: '0.98rem', fontWeight: 700 }}>
+                            <span dangerouslySetInnerHTML={{ __html: parseInline(trimmed.substring(4)) }} />
+                        </h4>
+                    );
+                }
+
+                if (trimmed.startsWith('## ')) {
+                    return (
+                        <h3 key={idx} style={{ margin: '0.85rem 0 0.35rem 0', color: '#ffffff', fontSize: '1.08rem', fontWeight: 800 }}>
+                            <span dangerouslySetInnerHTML={{ __html: parseInline(trimmed.substring(3)) }} />
+                        </h3>
+                    );
                 }
 
                 if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
                     const text = trimmed.substring(2);
                     return (
-                        <li key={idx} style={{ marginLeft: '1rem', listStyleType: 'disc' }}>
+                        <li key={idx} style={{ marginLeft: '1.2rem', marginBottom: '0.2rem', listStyleType: 'disc' }}>
                             <span dangerouslySetInnerHTML={{ __html: parseInline(text) }} />
                         </li>
                     );
                 }
 
+                const numberMatch = trimmed.match(/^(\d+)\.\s(.*)/);
+                if (numberMatch) {
+                    return (
+                        <li key={idx} style={{ marginLeft: '1.2rem', marginBottom: '0.2rem', listStyleType: 'decimal' }}>
+                            <span dangerouslySetInnerHTML={{ __html: parseInline(numberMatch[2]) }} />
+                        </li>
+                    );
+                }
+
                 return (
-                    <p key={idx} style={{ margin: '0.25rem 0' }}>
+                    <p key={idx} style={{ margin: '0.25rem 0', lineHeight: '1.6' }}>
                         <span dangerouslySetInnerHTML={{ __html: parseInline(trimmed) }} />
                     </p>
                 );

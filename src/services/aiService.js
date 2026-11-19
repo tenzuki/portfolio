@@ -7,11 +7,11 @@ const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 
 // Curated list of reliable free models on OpenRouter
 export const AVAILABLE_FREE_MODELS = [
-    { id: 'nvidia/nemotron-3.5-lightning:free', name: 'Nemotron 3.5 Lightning (Free)' },
-    { id: 'cohere/north-mini-code:free', name: 'Cohere North Mini (Free)' },
+    { id: 'nvidia/nemotron-3.5-lightning:free', name: 'Nvidia Nemotron 3.5 Lightning (Free)' },
     { id: 'liquid/lfm-3-1.7b:free', name: 'Liquid LFM 3 (Free)' },
-    { id: 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free', name: 'Nemotron Nano Omni (Free)' },
-    { id: 'google/gemma-4-26b-a4b-it:free', name: 'Google Gemma 4 (Free)' }
+    { id: 'cohere/north-mini-code:free', name: 'Cohere North Mini (Free)' },
+    { id: 'nvidia/nemotron-3.5-super-vl:free', name: 'Nvidia Nemotron 3.5 Super (Free)' },
+    { id: 'dots-studio/dots-3-note-preview:free', name: 'Dots 3 Note (Free)' }
 ];
 
 export const GUARDRAIL_REFUSAL_MESSAGE = 
@@ -127,7 +127,7 @@ export async function sendChatMessage(conversationHistory, preferredModel = null
     for (const modelId of modelsToTry) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s timeout
+            const timeoutId = setTimeout(() => controller.abort(), 25000); // 25s timeout for complete generations
 
             const response = await fetch(OPENROUTER_ENDPOINT, {
                 method: 'POST',
@@ -141,7 +141,12 @@ export async function sendChatMessage(conversationHistory, preferredModel = null
                     model: modelId,
                     messages: messages,
                     temperature: 0.3, // Low temperature for factual fidelity
-                    max_tokens: 600
+                    max_tokens: 4000, // Ample token capacity for complete and detailed answers
+                    include_reasoning: false, // Ensure reasoning does not consume response token budget
+                    reasoning: {
+                        exclude: true,
+                        max_tokens: 0
+                    }
                 }),
                 signal: controller.signal
             });
@@ -156,7 +161,8 @@ export async function sendChatMessage(conversationHistory, preferredModel = null
             }
 
             const data = await response.json();
-            const reply = data.choices?.[0]?.message?.content;
+            const choice = data.choices?.[0];
+            const reply = choice?.message?.content || choice?.message?.reasoning;
 
             if (reply && reply.trim().length > 0) {
                 return {
