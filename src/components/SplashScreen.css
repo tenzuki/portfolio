@@ -1,9 +1,9 @@
-/* Splash / Loading Screen Component */
+/* Minimalist Luxury Splash Screen - Perfectly Synced with Portfolio Dark Theme */
 .splash-screen {
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: #030305;
+    background: #000000;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -13,28 +13,17 @@
     user-select: none;
 }
 
-/* Background Cyber Grid & Glow */
-.splash-grid {
-    position: absolute;
-    inset: 0;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    opacity: 0.6;
-}
-
+/* Subtle Monochrome Ambient Glow */
 .splash-ambient-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(100, 181, 246, 0.15) 0%, rgba(0, 255, 136, 0.08) 40%, transparent 70%);
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    filter: blur(40px);
+    filter: blur(60px);
 }
 
 /* Skip Button */
@@ -52,7 +41,7 @@
     letter-spacing: 0.05em;
 }
 
-/* Core Container */
+/* Core Content Container */
 .splash-core-content {
     position: relative;
     z-index: 2;
@@ -60,15 +49,15 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 580px;
+    max-width: 540px;
     padding: 1.5rem;
 }
 
-/* Holographic Avatar Portal */
-.splash-avatar-portal {
+/* Minimalist Avatar Presentation */
+.splash-avatar-container {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,14 +66,15 @@
 
 .portal-avatar-frame {
     position: relative;
-    width: 110px;
-    height: 110px;
+    width: 105px;
+    height: 105px;
     border-radius: 50%;
     overflow: hidden;
     padding: 3px;
-    background: linear-gradient(135deg, #64b5f6, #00ff88);
-    box-shadow: 0 0 35px rgba(100, 181, 246, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.6);
-    z-index: 3;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.06), 0 20px 40px rgba(0, 0, 0, 0.8);
+    transition: transform 0.4s ease;
 }
 
 .portal-avatar-img {
@@ -92,86 +82,42 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    background: #111218;
+    background: #09090b;
 }
 
-/* Concentric Cyber Rings */
-.portal-ring {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.portal-ring-outer {
-    width: 145px;
-    height: 145px;
-    border: 1.5px dashed rgba(100, 181, 246, 0.4);
-    animation: portal-spin 12s linear infinite;
-}
-
-.portal-ring-inner {
-    width: 128px;
-    height: 128px;
-    border: 1px dotted rgba(0, 255, 136, 0.4);
-    animation: portal-spin-reverse 8s linear infinite;
-}
-
-@keyframes portal-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes portal-spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
-}
-
-/* Scanning Light Beam */
-.portal-scanning-beam {
-    position: absolute;
-    width: 120px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff88, transparent);
-    box-shadow: 0 0 10px #00ff88;
-    z-index: 4;
-    animation: portal-scan 2.2s infinite ease-in-out;
-}
-
-@keyframes portal-scan {
-    0%, 100% { top: 25px; opacity: 0; }
-    50% { top: 125px; opacity: 1; }
-}
-
+/* Clean Minimalist Status Badge */
 .portal-status-badge {
     position: absolute;
     bottom: -8px;
     z-index: 5;
-    background: rgba(14, 15, 20, 0.95);
-    border: 1px solid rgba(100, 181, 246, 0.4);
+    background: rgba(18, 18, 22, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 9999px;
-    padding: 0.2rem 0.65rem;
+    padding: 0.25rem 0.75rem;
     font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    color: #64b5f6;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    gap: 0.45rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .portal-live-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #00ff88;
-    box-shadow: 0 0 6px #00ff88;
-    animation: live-pulse 1.2s infinite ease-in-out;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+    animation: live-pulse-monochrome 2s infinite ease-in-out;
 }
 
-@keyframes live-pulse {
+@keyframes live-pulse-monochrome {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.7); }
+    50% { opacity: 0.4; transform: scale(0.8); }
 }
 
 /* Titles */
@@ -181,28 +127,38 @@
 }
 
 .splash-name {
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 900;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     color: #ffffff;
-    margin: 0 0 0.4rem 0;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
 }
 
 .splash-role {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: #94a3b8;
-    margin: 0 0 0.4rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 0.85rem 0;
     text-transform: uppercase;
 }
 
 .splash-corp-tag {
+    display: inline-block;
+}
+
+.splash-corp-tag span {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.08em;
-    color: #64b5f6;
+    color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 /* Progress Station & Popups */
@@ -213,11 +169,11 @@
     align-items: center;
 }
 
-/* Milestone Popup that floats above the bar */
+/* Milestone Popup */
 .milestone-popup-anchor {
     width: 100%;
-    height: 90px;
-    margin-bottom: 0.75rem;
+    height: 86px;
+    margin-bottom: 1rem;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -225,28 +181,29 @@
 
 .milestone-card {
     width: 100%;
-    background: rgba(18, 20, 26, 0.9);
-    border: 1px solid rgba(100, 181, 246, 0.3);
-    border-radius: 16px;
+    background: rgba(14, 14, 18, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
     padding: 0.85rem 1.15rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(100, 181, 246, 0.15);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     gap: 0.9rem;
 }
 
 .milestone-icon-wrap {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: #ffffff;
 }
 
 .milestone-info {
@@ -258,14 +215,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.2rem;
 }
 
 .milestone-tag {
+    font-family: 'SF Mono', monospace;
     font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #64b5f6;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
 }
 
@@ -273,7 +231,7 @@
     font-family: 'SF Mono', monospace;
     font-size: 0.75rem;
     font-weight: 800;
-    color: #00ff88;
+    color: #ffffff;
 }
 
 .milestone-title {
@@ -284,39 +242,40 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: 0.01em;
 }
 
 .milestone-detail {
-    font-size: 0.75rem;
-    color: #94a3b8;
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 400;
 }
 
-/* Loading Bar Track */
+/* Minimalist Loading Bar Track */
 .splash-track-wrap {
     width: 100%;
 }
 
 .splash-track {
     width: 100%;
-    height: 8px;
+    height: 4px;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 9999px;
     overflow: hidden;
     position: relative;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .splash-fill {
     height: 100%;
-    background: linear-gradient(90deg, #64b5f6 0%, #00ff88 100%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, #ffffff 100%);
     border-radius: 9999px;
     position: relative;
-    box-shadow: 0 0 16px rgba(0, 255, 136, 0.7);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
     transition: width 0.04s linear;
 }
 
@@ -325,11 +284,11 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
     background: #ffffff;
     border-radius: 50%;
-    box-shadow: 0 0 10px #ffffff, 0 0 20px #00ff88;
+    box-shadow: 0 0 10px #ffffff, 0 0 18px rgba(255, 255, 255, 0.8);
 }
 
 /* Metrics Row */
@@ -338,17 +297,17 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 0.85rem;
-    font-size: 0.72rem;
-    color: #64748b;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
     font-family: 'SF Mono', monospace;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
 }
 
 .metrics-left {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    font-weight: 600;
+    gap: 0.45rem;
+    font-weight: 500;
 }
 
 .metrics-right {
@@ -360,26 +319,28 @@
 
 .counter-num {
     font-size: 1.15rem;
-    color: #00ff88;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    font-weight: 800;
 }
 
 .counter-pct {
     font-size: 0.8rem;
-    color: #64b5f6;
+    color: rgba(255, 255, 255, 0.6);
     margin-left: 1px;
 }
 
-/* Footer */
+/* Minimalist Footer */
 .splash-footer {
     position: absolute;
     bottom: 2rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    color: #475569;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.3);
     font-family: 'SF Mono', monospace;
     text-align: center;
     padding: 0 1rem;
+    text-transform: uppercase;
 }
 
 @media (max-width: 640px) {
@@ -391,7 +352,7 @@
         right: 1rem;
     }
     .milestone-popup-anchor {
-        height: 100px;
+        height: 96px;
     }
     .milestone-title, .milestone-detail {
         white-space: normal;

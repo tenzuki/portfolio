@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
     Cpu, 
-    Sparkles, 
     Smartphone, 
     ShieldCheck, 
     Eye, 
@@ -15,37 +14,37 @@ import './SplashScreen.css';
 
 const LOADING_MILESTONES = [
     {
-        pct: 12,
-        icon: <Smartphone size={18} color="#64b5f6" />,
-        tag: 'MOBILE CORE',
+        pct: 15,
+        icon: <Smartphone size={18} color="#ffffff" />,
+        tag: '01 / MOBILE & SYSTEMS',
         title: 'Mounting 60 FPS Flutter & React Systems',
         detail: 'Pre-caching reactive engines and Play Store testing protocols'
     },
     {
         pct: 35,
-        icon: <ShieldCheck size={18} color="#00ff88" />,
-        tag: 'INFRASTRUCTURE',
+        icon: <ShieldCheck size={18} color="#ffffff" />,
+        tag: '02 / CLOUD & BACKEND',
         title: 'Calibrating Azure Cloud & 2,000+ DAU Logistics',
         detail: 'Verifying BezgoFresh solo architecture & dispatch backends'
     },
     {
-        pct: 62,
-        icon: <Eye size={18} color="#a855f7" />,
-        tag: 'APPLIED AI',
+        pct: 60,
+        icon: <Eye size={18} color="#ffffff" />,
+        tag: '03 / APPLIED AI',
         title: 'Synchronizing Vision & MediaPipe Tracking Models',
         detail: 'Touchless gesture control, motion security & predictive revenue engines'
     },
     {
-        pct: 85,
-        icon: <Cpu size={18} color="#f59e0b" />,
-        tag: 'TECH LEAD',
+        pct: 82,
+        icon: <Cpu size={18} color="#ffffff" />,
+        tag: '04 / LEADERSHIP',
         title: 'Connecting Bornov Technologies LLP Telemetry',
-        detail: '16 repositories, 93 stars, and full-stack enterprise pipelines'
+        detail: 'Directing full-stack architecture, 16+ repositories & production systems'
     },
     {
         pct: 100,
-        icon: <Rocket size={18} color="#00ff88" />,
-        tag: 'SYSTEM ONLINE',
+        icon: <Rocket size={18} color="#ffffff" />,
+        tag: '05 / READY',
         title: 'All Systems Operational • Welcome',
         detail: 'Launching Parthiv K Portfolio Experience'
     }
@@ -56,9 +55,9 @@ const SplashScreen = ({ onComplete }) => {
     const [activeMilestone, setActiveMilestone] = useState(LOADING_MILESTONES[0]);
 
     useEffect(() => {
-        // Smooth cinematic progress accumulation over ~2.4 seconds
+        // High-end smooth progress accumulation over 5 seconds
         const startTime = Date.now();
-        const duration = 2400;
+        const duration = 5000; // Exactly 5.0 seconds as requested
 
         const interval = setInterval(() => {
             const elapsed = Date.now() - startTime;
@@ -66,7 +65,7 @@ const SplashScreen = ({ onComplete }) => {
 
             setProgress(currentPct);
 
-            // Determine active milestone popup
+            // Determine active milestone
             const matched = [...LOADING_MILESTONES]
                 .reverse()
                 .find(m => currentPct >= m.pct);
@@ -78,7 +77,7 @@ const SplashScreen = ({ onComplete }) => {
                 clearInterval(interval);
                 setTimeout(() => {
                     onComplete();
-                }, 500); // Brief hold at 100% for climax
+                }, 450); // Satisfying hold at 100%
             }
         }, 25);
 
@@ -95,16 +94,15 @@ const SplashScreen = ({ onComplete }) => {
             initial={{ opacity: 1 }}
             exit={{ 
                 opacity: 0, 
-                scale: 1.05, 
-                filter: 'blur(10px)',
-                transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } 
+                scale: 1.02, 
+                filter: 'blur(8px)',
+                transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } 
             }}
         >
-            {/* Background Grid & Vignette */}
-            <div className="splash-grid" />
+            {/* Subtle Minimalist Vignette & Ambient Depth */}
             <div className="splash-ambient-glow" />
 
-            {/* Skip / Enter Immediately Button */}
+            {/* Skip Button */}
             <div className="splash-skip-wrap">
                 <CreepyEyeButton 
                     onClick={handleSkip} 
@@ -117,13 +115,8 @@ const SplashScreen = ({ onComplete }) => {
             </div>
 
             <div className="splash-core-content">
-                {/* Central Holographic Avatar Portal */}
-                <div className="splash-avatar-portal">
-                    {/* Concentric Rotating Cyber Rings */}
-                    <div className="portal-ring portal-ring-outer" />
-                    <div className="portal-ring portal-ring-inner" />
-                    <div className="portal-scanning-beam" />
-
+                {/* Minimalist Luxury Avatar Portrait */}
+                <div className="splash-avatar-container">
                     <div className="portal-avatar-frame">
                         <img 
                             src="/assets/avatar.jpg" 
@@ -134,7 +127,7 @@ const SplashScreen = ({ onComplete }) => {
 
                     <div className="portal-status-badge">
                         <span className="portal-live-dot" />
-                        <span>TECH LEAD CORE</span>
+                        <span>TECH LEAD & ARCHITECT</span>
                     </div>
                 </div>
 
@@ -143,6 +136,7 @@ const SplashScreen = ({ onComplete }) => {
                     <motion.h1 
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
                         className="splash-name"
                     >
                         PARTHIV K.
@@ -155,17 +149,17 @@ const SplashScreen = ({ onComplete }) => {
                     </div>
                 </div>
 
-                {/* Progress Bar & Pop-ups Area */}
+                {/* Progress Station & Milestone Cards */}
                 <div className="splash-progress-station">
-                    {/* Floating Milestone Pop-up coming from the loading bar */}
+                    {/* Floating Milestone Card */}
                     <div className="milestone-popup-anchor">
                         <AnimatePresence mode="wait">
                             <motion.div 
                                 key={activeMilestone.tag}
-                                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                                initial={{ opacity: 0, y: 12, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: -12, scale: 0.92 }}
-                                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 25 }}
                                 className="milestone-card"
                             >
                                 <div className="milestone-icon-wrap">
@@ -183,7 +177,7 @@ const SplashScreen = ({ onComplete }) => {
                         </AnimatePresence>
                     </div>
 
-                    {/* High-Tech Animated Loading Bar */}
+                    {/* Minimalist Monochrome Loading Bar */}
                     <div className="splash-track-wrap">
                         <div className="splash-track">
                             <div 
@@ -197,7 +191,7 @@ const SplashScreen = ({ onComplete }) => {
                         {/* Numeric Counter HUD */}
                         <div className="splash-metrics-row">
                             <div className="metrics-left">
-                                <Terminal size={14} color="#64b5f6" />
+                                <Terminal size={14} color="rgba(255, 255, 255, 0.6)" />
                                 <span>INITIALIZING PORTFOLIO ENGINE...</span>
                             </div>
                             <div className="metrics-right">
