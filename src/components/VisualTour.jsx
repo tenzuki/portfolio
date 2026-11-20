@@ -461,38 +461,84 @@ const VisualTour = ({ isActive, onClose }) => {
                     <div className="thruster-plume plume-bl" />
                     <div className="thruster-plume plume-br" />
 
-                    {/* High-Tech Vector Drone Chassis SVG */}
+                    {/* Cute Stylized Companion Drone Chassis */}
                     <svg 
                         className="drone-svg-chassis" 
                         viewBox="0 0 100 100" 
                         fill="none" 
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        {/* 4 Carbon Outrigger Nacelle Arms */}
-                        <path d="M22 22 L40 40 M78 22 L60 40 M22 78 L40 60 M78 78 L60 60" stroke="#00ffcc" strokeWidth="2.5" strokeLinecap="round" opacity="0.85" />
-                        
-                        {/* 4 Corner Nacelle Rings with Glowing Thruster Cores */}
-                        <circle cx="22" cy="22" r="5" fill="#0c1017" stroke="#00ffcc" strokeWidth="2" />
-                        <circle cx="78" cy="22" r="5" fill="#0c1017" stroke="#00ffcc" strokeWidth="2" />
-                        <circle cx="22" cy="78" r="5" fill="#0c1017" stroke="#00ffcc" strokeWidth="2" />
-                        <circle cx="78" cy="78" r="5" fill="#0c1017" stroke="#00ffcc" strokeWidth="2" />
+                        <defs>
+                            <linearGradient id="droneBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#1e2230" />
+                                <stop offset="100%" stopColor="#0d0f16" />
+                            </linearGradient>
+                            <linearGradient id="droneVisorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#07080d" />
+                                <stop offset="100%" stopColor="#131622" />
+                            </linearGradient>
+                            <radialGradient id="droneEyeGrad" cx="38%" cy="38%" r="62%">
+                                <stop offset="0%" stopColor="#ffa726" />
+                                <stop offset="55%" stopColor="#ff5e00" />
+                                <stop offset="100%" stopColor="#b33600" />
+                            </radialGradient>
+                        </defs>
 
-                        {/* Aerodynamic Carbon Stealth Fuselage */}
-                        <polygon points="50,12 76,46 68,76 50,88 32,76 24,46" fill="#0b0e14" stroke="#253248" strokeWidth="2" />
-                        
-                        {/* Titanium Armor Plating */}
-                        <polygon points="50,20 68,46 62,70 50,78 38,70 32,46" fill="#131926" stroke="rgba(0, 255, 204, 0.45)" strokeWidth="1" />
-                        
-                        {/* Directional Front Nose Arrow */}
-                        <polygon points="50,15 54,24 46,24" fill="#00ffcc" />
+                        {/* Cute Arched Rotor Arms */}
+                        <path d="M35 35 C 24 28, 20 22, 16 16" stroke="#252a3a" strokeWidth="4.5" strokeLinecap="round" />
+                        <path d="M65 35 C 76 28, 80 22, 84 16" stroke="#252a3a" strokeWidth="4.5" strokeLinecap="round" />
+                        <path d="M35 65 C 24 72, 20 78, 16 84" stroke="#252a3a" strokeWidth="4.5" strokeLinecap="round" />
+                        <path d="M65 65 C 76 72, 80 78, 84 84" stroke="#252a3a" strokeWidth="4.5" strokeLinecap="round" />
 
-                        {/* Central Ventral Optical Sensor Visor (Pulse Ocular Eye) */}
-                        <circle cx="50" cy="50" r="11" fill="#080a0f" stroke="#00ffcc" strokeWidth="2" />
-                        <circle cx="50" cy="50" r="6" fill="#00ffcc" className="drone-core-sensor" />
-                        <circle cx="50" cy="50" r="2.5" fill="#ffffff" />
+                        {/* 4 Rounded Propeller Guard Rings */}
+                        <circle cx="16" cy="16" r="11" fill="#0f1118" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.8" />
+                        <circle cx="84" cy="16" r="11" fill="#0f1118" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.8" />
+                        <circle cx="16" cy="84" r="11" fill="#0f1118" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.8" />
+                        <circle cx="84" cy="84" r="11" fill="#0f1118" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.8" />
 
-                        {/* Oscillating Scanner Sweep Reticle */}
-                        <line x1="42" y1="50" x2="58" y2="50" stroke="#00ffcc" strokeWidth="1.5" strokeLinecap="round" className="drone-sensor-sweep-line" />
+                        {/* Animated Spinning Cartoon Propellers */}
+                        <g className="drone-propeller-spin" style={{ transformOrigin: '16px 16px' }}>
+                            <ellipse cx="16" cy="16" rx="9" ry="2.2" fill="rgba(255, 255, 255, 0.6)" />
+                        </g>
+                        <g className="drone-propeller-spin-rev" style={{ transformOrigin: '84px 16px' }}>
+                            <ellipse cx="84" cy="16" rx="9" ry="2.2" fill="rgba(255, 255, 255, 0.6)" />
+                        </g>
+                        <g className="drone-propeller-spin-rev" style={{ transformOrigin: '16px 84px' }}>
+                            <ellipse cx="16" cy="84" rx="9" ry="2.2" fill="rgba(255, 255, 255, 0.6)" />
+                        </g>
+                        <g className="drone-propeller-spin" style={{ transformOrigin: '84px 84px' }}>
+                            <ellipse cx="84" cy="84" rx="9" ry="2.2" fill="rgba(255, 255, 255, 0.6)" />
+                        </g>
+
+                        {/* Rotor Center Hub Caps */}
+                        <circle cx="16" cy="16" r="3.2" fill="#ff7a00" />
+                        <circle cx="84" cy="16" r="3.2" fill="#ff7a00" />
+                        <circle cx="16" cy="84" r="3.2" fill="#ff7a00" />
+                        <circle cx="84" cy="84" r="3.2" fill="#ff7a00" />
+
+                        {/* Top Antenna with Cute Glowing Amber Signal Dot */}
+                        <line x1="50" y1="28" x2="50" y2="17" stroke="#3b4256" strokeWidth="2.5" strokeLinecap="round" />
+                        <circle cx="50" cy="15" r="3" fill="#ffaa00" className="drone-antenna-light" />
+
+                        {/* Main Rounded Pod Fuselage */}
+                        <rect x="27" y="27" width="46" height="46" rx="20" fill="url(#droneBodyGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="2" />
+                        {/* Soft Top Surface Highlight Sheen */}
+                        <path d="M33 34 Q 50 30 67 34" stroke="rgba(255, 255, 255, 0.22)" strokeWidth="2" strokeLinecap="round" fill="none" />
+
+                        {/* Expressive Rounded Visor Screen */}
+                        <rect x="33" y="37" width="34" height="26" rx="11" fill="url(#droneVisorGrad)" stroke="rgba(255, 122, 0, 0.55)" strokeWidth="1.8" />
+
+                        {/* Cute Central Optical Eye with Friendly Sparkle */}
+                        <circle cx="50" cy="50" r="7.5" fill="url(#droneEyeGrad)" className="drone-core-sensor" />
+                        <circle cx="50" cy="50" r="4.5" fill="#ffffff" />
+                        <circle cx="52" cy="48" r="1.8" fill="#ffffff" />
+
+                        {/* Cute Smile / Status Mouth Curve */}
+                        <path d="M46 58 Q 50 61 54 58" stroke="rgba(255, 255, 255, 0.5)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+
+                        {/* Subtle Cheek Blushes / Telemetry Dots */}
+                        <circle cx="38" cy="53" r="1.5" fill="rgba(255, 94, 0, 0.55)" />
+                        <circle cx="62" cy="53" r="1.5" fill="rgba(255, 94, 0, 0.55)" />
                     </svg>
 
                     {/* Glowing Thruster Lights */}
