@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Github, Star, GitFork, ArrowUpRight, Filter, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Github, Star, GitFork, ArrowUpRight, Sparkles } from 'lucide-react';
 import TiltCard from './TiltCard';
 import { fallbackRepos } from './fallbackRepos';
 import './Projects.css';
@@ -10,14 +10,6 @@ const Projects = () => {
     const [activeCategory, setActiveCategory] = useState('all');
     const [sortBy, setSortBy] = useState('recent'); // 'recent' | 'stars'
     const [loading, setLoading] = useState(true);
-    const ref = useRef(null);
-
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -185,7 +177,7 @@ const Projects = () => {
     };
 
     return (
-        <section id="projects" className="projects" ref={ref}>
+        <section id="projects" className="projects">
             <div className="section-container">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -243,13 +235,12 @@ const Projects = () => {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
                         className="puzzle-grid"
-                        style={{ y }}
                     >
                         {sortedProjects.map((item) => (
                             <motion.div 
                                 key={item.id} 
                                 variants={itemVariants} 
-                                className={`puzzle-item ${item.isFeatured ? 'size-wide' : 'size-normal'}`}
+                                className="puzzle-item"
                             >
                                 <a 
                                     href={item.html_url} 
@@ -258,24 +249,26 @@ const Projects = () => {
                                     className="puzzle-link"
                                 >
                                     <TiltCard className={`puzzle-repo-card ${item.isFeatured ? 'featured-repo' : ''}`}>
-                                        {item.isFeatured && (
-                                            <span className="featured-badge-pill">
-                                                <Sparkles size={12} style={{ marginRight: '4px' }} /> Enterprise
-                                            </span>
-                                        )}
                                         <div className="repo-header">
-                                            <Github size={28} />
-                                            <ArrowUpRight className="link-arrow" size={24} />
+                                            <div className="repo-header-left">
+                                                <Github size={24} className="repo-gh-icon" />
+                                                {item.isFeatured && (
+                                                    <span className="featured-badge-pill">
+                                                        <Sparkles size={11} /> Enterprise
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <ArrowUpRight className="link-arrow" size={20} />
                                         </div>
                                         <div className="repo-content">
-                                            <h3 className="repo-name">{item.name}</h3>
+                                            <h3 className="repo-name" title={item.name}>{item.name}</h3>
                                             <p className="repo-desc">{item.description}</p>
                                         </div>
                                         <div className="repo-footer">
                                             <span className="repo-lang">{item.language}</span>
                                             <div className="repo-stats">
-                                                <span><Star size={15}/> {item.stargazers_count}</span>
-                                                <span><GitFork size={15}/> {item.forks_count}</span>
+                                                <span><Star size={13} /> {item.stargazers_count}</span>
+                                                <span><GitFork size={13} /> {item.forks_count}</span>
                                             </div>
                                         </div>
                                     </TiltCard>
