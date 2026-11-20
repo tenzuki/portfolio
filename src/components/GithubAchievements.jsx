@@ -162,7 +162,7 @@ const GithubAchievements = () => {
                     className="section-header"
                 >
                     <span className="section-label">04 / OPEN SOURCE</span>
-                    <h2>Code I've <em className="serif-accent">put into</em> the world.</h2>
+                    <h2>ACHIEVEMENTS</h2>
                     <p>GITHUB RECOGNITIONS &amp; METRICS</p>
                 </motion.div>
 
