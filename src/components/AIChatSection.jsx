@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
-    Bot, 
     Sparkles, 
     Send, 
     RotateCcw, 
@@ -108,11 +107,10 @@ const AIChatSection = () => {
     const inputRef = useRef(null);
 
     const suggestions = [
-        "What is Parthiv's current role at Bornov Technologies?",
-        "What systems did he build at BezgoFresh?",
-        "Tell me about his top GitHub projects and repositories",
-        "What are his core technical skills and stacks?",
-        "How can I get in touch with Parthiv?"
+        "Current Tech Lead role at Bornov Technologies?",
+        "Production applications built at BezgoFresh?",
+        "Core technical skills & full-stack stacks?",
+        "Top GitHub projects & AI architectures?"
     ];
 
     // Scroll ONLY the internal messages container, NEVER the window/webpage
@@ -201,8 +199,9 @@ const AIChatSection = () => {
                     style={{ y: yTitle }}
                     className="section-header"
                 >
-                    <h2>INTELLIGENCE</h2>
-                    <p>INTERACTIVE PORTFOLIO ASSISTANT</p>
+                    <span className="section-label">04 / INTELLIGENCE</span>
+                    <h2>Live <em className="serif-accent">Assistant</em></h2>
+                    <p>INTERACTIVE PORTFOLIO CONSOLE</p>
                 </motion.div>
 
                 <div className="ai-section-grid">
@@ -215,43 +214,46 @@ const AIChatSection = () => {
                         className="ai-info-wrapper"
                     >
                         <TiltCard className="ai-info-card">
-                            <div className="ai-status-row">
-                                <div className="ai-avatar-badge">
-                                    <div className="ai-avatar-icon" style={{ padding: 0, overflow: 'hidden', border: '1px solid rgba(100, 181, 246, 0.4)' }}>
-                                        <img src="/assets/logo.png" alt="Parthiv AI" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                            <div className="ai-info-top">
+                                <div className="ai-status-row">
+                                    <div className="ai-avatar-badge">
+                                        <div className="ai-avatar-icon">
+                                            <img src="/assets/logo.png" alt="Parthiv AI" />
+                                        </div>
+                                        <div>
+                                            <h4>Parthiv AI</h4>
+                                            <span>Official Assistant</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h4 style={{ margin: 0, fontSize: '1.05rem', color: '#ffffff' }}>Parthiv AI</h4>
-                                        <span style={{ fontSize: '0.8rem', color: '#888888' }}>Official Assistant</span>
+                                    <div className="ai-pulse-pill">
+                                        <span className="pulse-circle" />
+                                        Active &amp; Ready
                                     </div>
                                 </div>
-                                <div className="ai-pulse-pill">
-                                    <span className="pulse-circle" />
-                                    Active & Ready
+
+                                <h3 className="ai-info-title">Direct Answers in Real Time</h3>
+                                <p className="ai-info-desc">
+                                    Inquire about Parthiv's engineering at Bornov Technologies, production applications at BezgoFresh, 15+ repositories, or his full-stack &amp; AI expertise.
+                                </p>
+
+                                <div className="ai-suggestions-title">
+                                    <Sparkles size={15} color="#64b5f6" />
+                                    <span>Prompt Suggestions</span>
                                 </div>
-                            </div>
 
-                            <h3 className="ai-info-title">Direct Answers in Real Time</h3>
-                            <p className="ai-info-desc">
-                                Inquire about Parthiv's engineering at Bornov Technologies, production applications at BezgoFresh, 15+ repositories, or his full-stack & AI expertise.
-                            </p>
-
-                            <div className="ai-suggestions-title">
-                                <Sparkles size={16} color="#64b5f6" /> Prompt Suggestions
-                            </div>
-
-                            <div className="ai-chips-list">
-                                {suggestions.map((query, index) => (
-                                    <button
-                                        key={index}
-                                        type="button"
-                                        className="ai-prompt-chip"
-                                        onClick={() => handleSend(query)}
-                                    >
-                                        <span>{query}</span>
-                                        <ArrowRight size={16} className="chip-arrow" />
-                                    </button>
-                                ))}
+                                <div className="ai-chips-list">
+                                    {suggestions.map((query, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            className="ai-prompt-chip"
+                                            onClick={() => handleSend(query)}
+                                        >
+                                            <span>{query}</span>
+                                            <ArrowRight size={15} className="chip-arrow" />
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="ai-features-row">
@@ -279,7 +281,7 @@ const AIChatSection = () => {
                                     <span className="dot dot-green" />
                                 </div>
                                 <div className="console-title-wrap">
-                                    <Sparkles size={16} color="#64b5f6" />
+                                    <Sparkles size={15} color="#64b5f6" />
                                     <span>Live Portfolio Assistant</span>
                                 </div>
                                 <CreepyEyeButton
