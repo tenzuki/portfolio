@@ -25,27 +25,31 @@ const Experience = () => {
                     <p>SYSTEMS ARCHITECTURE &amp; LEADERSHIP</p>
                 </motion.div>
 
-                <div className="experience-grid">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, type: "spring" }}
-                        className="exp-image-wrapper"
-                    >
-                        <img 
-                            src="/assets/photo1.jpg" 
-                            alt="Working Environment" 
-                            className="exp-img" 
-                            loading="lazy" 
-                            decoding="async" 
-                        />
-                    </motion.div>
-
-                    <div className="timeline">
-                        {/* Chapter 01: Bornov Technologies LLP */}
+                <div className="timeline">
+                    {/* Chapter 01: Bornov Technologies LLP */}
+                    <div className="chapter-item">
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, type: "spring" }}
+                            className="exp-image-wrapper"
+                        >
+                            <img 
+                                src="/assets/photo1.jpg" 
+                                alt="Bornov Technologies - Parthiv K" 
+                                className="exp-img" 
+                                loading="lazy" 
+                                decoding="async" 
+                            />
+                            <div className="exp-image-badge">
+                                <span className="exp-image-badge-dot" />
+                                <span>BORNOV TECHNOLOGIES LLP</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -40 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8, type: "spring" }}
@@ -82,7 +86,7 @@ const Experience = () => {
                                             <span className="badge">LEADERSHIP</span>
                                         </div>
                                         <p className="breakthrough-desc">
-                                            Guiding end-to-end full stack architecture, selecting scalable framework patterns, and mentoring code reviews across frontend, backend, and repository infrastructure (associated with <code>bornovdev</code>).
+                                             Guiding end-to-end full stack architecture, selecting scalable framework patterns, and mentoring code reviews across frontend, backend, and repository infrastructure (associated with <code>bornovdev</code>).
                                         </p>
                                     </div>
 
@@ -116,10 +120,32 @@ const Experience = () => {
                                 </div>
                             </TiltCard>
                         </motion.div>
+                    </div>
 
-                        {/* Chapter 02: BezgoFresh */}
+                    {/* Chapter 02: BezgoFresh */}
+                    <div className="chapter-item">
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, type: "spring", delay: 0.1 }}
+                            className="exp-image-wrapper"
+                        >
+                            <img 
+                                src="/assets/photo_bezgo.jpg" 
+                                alt="BezgoFresh Solo Crucible - Parthiv K" 
+                                className="exp-img exp-img-bezgo" 
+                                loading="lazy" 
+                                decoding="async" 
+                            />
+                            <div className="exp-image-badge">
+                                <span className="exp-image-badge-dot" />
+                                <span>BEZGOFRESH STARTUP CRUCIBLE</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -40 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8, type: "spring", delay: 0.2 }}
