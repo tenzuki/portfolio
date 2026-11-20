@@ -1,360 +1,260 @@
-/* Minimalist Luxury Splash Screen - Perfectly Synced with Portfolio Dark Theme */
-.splash-screen {
+/* Kinetic Morph Loader - Coding Stella Implementation */
+.preloader {
     position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: #000000;
-    color: #ffffff;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b0b0b;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    z-index: 99999;
     overflow: hidden;
     user-select: none;
+    font-family: var(--font-main), 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Subtle Monochrome Ambient Glow */
-.splash-ambient-glow {
+/* Ambient glow */
+.loader-ambient-glow {
     position: absolute;
-    width: 650px;
-    height: 650px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 94, 0, 0.08) 0%, transparent 65%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    filter: blur(60px);
+    filter: blur(80px);
 }
 
 /* Skip Button */
-.splash-skip-wrap {
+.loader-skip-wrap {
     position: absolute;
     top: 2rem;
     right: 2rem;
     z-index: 10;
 }
 
-.splash-skip-btn {
+.loader-skip-btn {
     min-width: 120px;
     height: 38px;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
 }
 
-/* Core Content Container */
-.splash-core-content {
-    position: relative;
-    z-index: 2;
+/* Loader Content Container */
+.loader-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 540px;
-    padding: 1.5rem;
+    width: min(320px, 90vw);
+    position: relative;
+    z-index: 2;
 }
 
-/* Minimalist Avatar Presentation */
-.splash-avatar-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
+/* Brand / Telemetry Status Tag */
+.loader-brand-tag {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.portal-avatar-frame {
-    position: relative;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    overflow: hidden;
-    padding: 3px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 35px rgba(255, 255, 255, 0.06), 0 20px 40px rgba(0, 0, 0, 0.8);
-    transition: transform 0.4s ease;
-}
-
-.portal-avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    background: #09090b;
-}
-
-/* Clean Minimalist Status Badge */
-.portal-status-badge {
-    position: absolute;
-    bottom: -8px;
-    z-index: 5;
-    background: rgba(18, 18, 22, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
     border-radius: 9999px;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.65rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+    font-family: var(--font-code);
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-.portal-live-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-    animation: live-pulse-monochrome 2s infinite ease-in-out;
-}
-
-@keyframes live-pulse-monochrome {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-}
-
-/* Titles */
-.splash-titles {
-    text-align: center;
-    margin-bottom: 2.25rem;
-}
-
-.splash-name {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    color: #ffffff;
-    margin: 0 0 0.5rem 0;
     text-transform: uppercase;
-}
-
-.splash-role {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.55);
-    margin: 0 0 0.85rem 0;
-    text-transform: uppercase;
-}
-
-.splash-corp-tag {
-    display: inline-block;
-}
-
-.splash-corp-tag span {
-    display: inline-block;
-    padding: 0.35rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1.5px;
+    margin-bottom: 2.5rem;
     backdrop-filter: blur(10px);
 }
 
-/* Progress Station & Popups */
-.splash-progress-station {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Milestone Popup */
-.milestone-popup-anchor {
-    width: 100%;
-    height: 86px;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.milestone-card {
-    width: 100%;
-    background: rgba(14, 14, 18, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 0.85rem 1.15rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-}
-
-.milestone-icon-wrap {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #ffffff;
-}
-
-.milestone-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.milestone-tag-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.2rem;
-}
-
-.milestone-tag {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-}
-
-.milestone-pct {
-    font-family: 'SF Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: #ffffff;
-}
-
-.milestone-title {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 0.1rem 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    letter-spacing: 0.01em;
-}
-
-.milestone-detail {
-    font-size: 0.74rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 400;
-}
-
-/* Minimalist Loading Bar Track */
-.splash-track-wrap {
-    width: 100%;
-}
-
-.splash-track {
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 9999px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.splash-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, #ffffff 100%);
-    border-radius: 9999px;
-    position: relative;
-    box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
-    transition: width 0.04s linear;
-}
-
-.splash-fill-glow {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: #ffffff;
+.loader-brand-dot {
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    box-shadow: 0 0 10px #ffffff, 0 0 18px rgba(255, 255, 255, 0.8);
+    background: #ff5e00;
+    box-shadow: 0 0 8px #ff5e00;
 }
 
-/* Metrics Row */
-.splash-metrics-row {
+.telemetry-sep {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.telemetry-stage {
+    color: #ff5e00;
+}
+
+/* Kinetic Morphing Shapes Grid - Exact Coding Stella specs */
+.kinetic-shapes {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 40px;
+    animation: rotateContainer 4s linear infinite;
+}
+
+.shape {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    border-radius: 6px;
+    transition: border-radius 0.3s ease, background-color 0.3s ease;
+}
+
+.shape-1 { 
+    top: 0; 
+    left: 0; 
+    background: #ffffff; 
+    animation: morphShape1 2s ease-in-out infinite alternate; 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.shape-2 { 
+    top: 0; 
+    right: 0; 
+    background: #ff5e00; 
+    animation: morphShape2 2s ease-in-out infinite alternate; 
+    box-shadow: 0 0 15px rgba(255, 94, 0, 0.5);
+}
+
+.shape-3 { 
+    bottom: 0; 
+    right: 0; 
+    background: #ffffff; 
+    animation: morphShape3 2s ease-in-out infinite alternate; 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.shape-4 { 
+    bottom: 0; 
+    left: 0; 
+    background: #ff5e00; 
+    animation: morphShape4 2s ease-in-out infinite alternate; 
+    box-shadow: 0 0 15px rgba(255, 94, 0, 0.5);
+}
+
+@keyframes rotateContainer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes morphShape1 {
+    0% { transform: scale(1) translate(0, 0); border-radius: 6px; }
+    50% { transform: scale(1.2) translate(10px, 10px); border-radius: 50%; }
+    100% { transform: scale(0.8) translate(0, 0); border-radius: 20px; }
+}
+
+@keyframes morphShape2 {
+    0% { transform: scale(1) translate(0, 0); border-radius: 6px; }
+    50% { transform: scale(1.2) translate(-10px, 10px); border-radius: 50%; }
+    100% { transform: scale(0.8) translate(0, 0); border-radius: 20px; }
+}
+
+@keyframes morphShape3 {
+    0% { transform: scale(1) translate(0, 0); border-radius: 6px; }
+    50% { transform: scale(1.2) translate(-10px, -10px); border-radius: 50%; }
+    100% { transform: scale(0.8) translate(0, 0); border-radius: 20px; }
+}
+
+@keyframes morphShape4 {
+    0% { transform: scale(1) translate(0, 0); border-radius: 6px; }
+    50% { transform: scale(1.2) translate(10px, -10px); border-radius: 50%; }
+    100% { transform: scale(0.8) translate(0, 0); border-radius: 20px; }
+}
+
+/* Text and Progress UI */
+.loading-info {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.85rem;
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.45);
-    font-family: 'SF Mono', monospace;
-    letter-spacing: 0.08em;
+    margin-bottom: 12px;
 }
 
-.metrics-left {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
+.status-text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #9a9aa2;
     font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
-.metrics-right {
+.counter {
     display: flex;
     align-items: baseline;
-    color: #ffffff;
+    font-family: var(--font-counter);
+    line-height: 1;
+}
+
+.km-number {
+    font-family: var(--font-counter);
+    font-size: clamp(52px, 8vw, 76px);
     font-weight: 800;
-}
-
-.counter-num {
-    font-size: 1.15rem;
     color: #ffffff;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -2px;
+    line-height: 1;
 }
 
-.counter-pct {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-left: 1px;
+.km-pct {
+    font-family: var(--font-counter);
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff3e00;
+    margin-left: 2px;
 }
 
-/* Minimalist Footer */
-.splash-footer {
+/* Progress Track & Fill */
+.progress-track {
+    width: 100%;
+    height: 4px;
+    background-color: #1e1e24;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff5e00, #ffa200);
+    border-radius: 4px;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 10px rgba(255, 94, 0, 0.7);
+}
+
+/* Footer Credits */
+.loader-footer {
     position: absolute;
     bottom: 2rem;
     font-size: 0.65rem;
     letter-spacing: 0.14em;
     color: rgba(255, 255, 255, 0.3);
-    font-family: 'SF Mono', monospace;
+    font-family: var(--font-code);
     text-align: center;
     padding: 0 1rem;
     text-transform: uppercase;
 }
 
-@media (max-width: 640px) {
-    .splash-name {
-        font-size: 2rem;
-    }
-    .splash-skip-wrap {
+@media (max-width: 480px) {
+    .loader-skip-wrap {
         top: 1rem;
         right: 1rem;
     }
-    .milestone-popup-anchor {
-        height: 96px;
+    .loader-content {
+        width: min(300px, 88vw);
     }
-    .milestone-title, .milestone-detail {
-        white-space: normal;
+    .loader-brand-tag {
+        margin-bottom: 1.75rem;
+        font-size: 10px;
+        padding: 0.35rem 0.75rem;
+    }
+    .kinetic-shapes {
+        margin-bottom: 25px;
     }
 }

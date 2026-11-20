@@ -42,13 +42,16 @@ const Hero = () => {
 
     return (
         <section id="home" className="hero" ref={ref}>
+            {/* Background Watermark Number 01 */}
+            <div className="hero-watermark" aria-hidden="true">01</div>
+
             <div className="hero-content">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, ease: "easeOut" }}
                 >
-                    <span className="hero-badge">Welcome to the future</span>
+                    <span className="hero-category-tag">Full Stack Developer & Systems Architect</span>
                 </motion.div>
 
                 <motion.h1
@@ -58,15 +61,8 @@ const Hero = () => {
                     initial="hidden"
                     animate="visible"
                 >
-                    {titleText.split('').map((char, index) => (
-                        <motion.span 
-                            key={index} 
-                            variants={letterVariants}
-                            style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-                        >
-                            {char}
-                        </motion.span>
-                    ))}
+                    <span className="hero-title-main">PARTHIV</span>{' '}
+                    <em className="hero-title-accent">K.</em>
                 </motion.h1>
 
                 <motion.p

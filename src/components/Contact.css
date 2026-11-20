@@ -25,20 +25,39 @@
 
 @media (max-width: 768px) {
     .contact {
-        padding: 5rem 1rem 2rem;
+        padding: 4rem 1rem 2rem;
     }
     .contact-bento {
         grid-template-columns: 1fr;
+        border-radius: 20px;
+        margin-bottom: 3rem;
     }
     .contact-image-wrapper {
-        min-height: 250px;
+        min-height: 220px;
+        max-height: 320px;
     }
     .contact-content {
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.25rem !important;
     }
-    .email-btn {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
+    .contact-title {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        margin-bottom: 1.25rem;
+    }
+    .contact-desc {
+        font-size: 12.5px;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+    .contact-creepy-btn {
+        width: 100% !important;
+        max-width: 260px !important;
+        height: 48px;
+    }
+    .contact-spotlight-hub {
+        margin: 2.5rem 0 3.5rem;
+    }
+    .hub-title {
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
     }
 }
 
@@ -69,32 +88,33 @@
 }
 
 .contact-overline {
-    color: var(--text-secondary);
-    font-family: 'Inter', monospace;
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    display: block;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 11px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 600;
+    letter-spacing: 0.2em;
+    font-weight: 400;
 }
 
 .contact-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 110px);
+    font-weight: 800;
     margin-bottom: 2rem;
     color: var(--text-primary);
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: -0.05em;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
 }
 
 .contact-desc {
-    font-size: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
     color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 4rem;
-    font-weight: 300;
+    line-height: 1.85;
+    margin-bottom: 3.5rem;
+    font-weight: 400;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -169,18 +189,20 @@
 }
 
 .hub-overline {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: #64b5f6;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--accent);
     text-transform: uppercase;
     display: block;
     margin-bottom: 0.5rem;
 }
 
 .hub-title {
+    font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 900;
+    font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.03em;
     text-transform: uppercase;
@@ -188,20 +210,23 @@
 }
 
 .hub-desc {
-    font-size: 1rem;
-    color: #94a3b8;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-secondary);
     max-width: 500px;
     margin: 0 auto;
 }
 
 .footer {
     text-align: center;
-    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
     padding-top: 3rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
-    font-weight: 300;
+    font-weight: 400;
     margin-top: auto;
+    letter-spacing: 0.04em;
 }
 
 .footer p {

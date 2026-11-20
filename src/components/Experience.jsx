@@ -20,8 +20,9 @@ const Experience = () => {
                     style={{ y: yTitle }}
                     className="section-header"
                 >
-                    <h2>EXPERIENCE</h2>
-                    <p>THE PRODUCTION CHRONICLES</p>
+                    <span className="section-label">03 / EXPERIENCE</span>
+                    <h2>Production <em className="serif-accent">Chronicles</em></h2>
+                    <p>SYSTEMS ARCHITECTURE &amp; LEADERSHIP</p>
                 </motion.div>
 
                 <div className="experience-grid">

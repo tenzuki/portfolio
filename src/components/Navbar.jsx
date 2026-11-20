@@ -1,10 +1,44 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Compass, Menu, X } from 'lucide-react';
 import CreepyEyeButton from './CreepyEyeButton';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ onStartTour, isTourActive = false }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Close mobile drawer on desktop resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 920 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen]);
+
+  // Prevent background scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleTourClick = () => {
+    setIsMobileMenuOpen(false);
+    onStartTour();
+  };
+
   return (
     <motion.nav 
       initial={{ y: -100 }}
@@ -13,17 +47,27 @@ const Navbar = () => {
       className="navbar"
     >
       <div className="navbar-container">
-        <a href="#" className="logo">
-          <div className="logo-avatar-wrap">
-            <img src="/assets/avatar.jpg" alt="Parthiv K" className="logo-avatar" />
-            <span className="logo-status-dot" />
-          </div>
+        <a href="#" className="logo" onClick={handleLinkClick}>
           <span className="logo-text">Parthiv K.</span>
         </a>
+
+        {/* Desktop Navigation Links */}
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li>
+            <CreepyEyeButton 
+              onClick={onStartTour} 
+              variant="nav" 
+              size="sm" 
+              className={`nav-guide-btn ${isTourActive ? 'is-tour-active' : ''}`}
+              title="Launch Autonomous Space Drone Reconnaissance Guide"
+            >
+              <Compass size={13} className="nav-guide-icon" />
+              <span>Guide Me</span>
+            </CreepyEyeButton>
+          </li>
           <li>
             <CreepyEyeButton 
               href="#ai-assistant" 
@@ -37,7 +81,63 @@ const Navbar = () => {
           <li><a href="#certifications">Resume</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <button 
+          type="button" 
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile Navigation Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="mobile-menu-drawer"
+          >
+            <div className="mobile-menu-inner">
+              <ul className="mobile-nav-list">
+                <li><a href="#about" onClick={handleLinkClick}>About</a></li>
+                <li><a href="#experience" onClick={handleLinkClick}>Experience</a></li>
+                <li><a href="#projects" onClick={handleLinkClick}>Projects</a></li>
+                <li><a href="#certifications" onClick={handleLinkClick}>Resume</a></li>
+                <li><a href="#contact" onClick={handleLinkClick}>Contact</a></li>
+              </ul>
+
+              <div className="mobile-nav-actions">
+                <CreepyEyeButton 
+                  onClick={handleTourClick} 
+                  variant="nav" 
+                  size="md" 
+                  className={`nav-guide-btn mobile-action-btn ${isTourActive ? 'is-tour-active' : ''}`}
+                >
+                  <Compass size={14} className="nav-guide-icon" />
+                  <span>Guide Me</span>
+                </CreepyEyeButton>
+
+                <CreepyEyeButton 
+                  href="#ai-assistant" 
+                  onClick={handleLinkClick}
+                  variant="nav" 
+                  size="md" 
+                  className="mobile-action-btn"
+                >
+                  <Sparkles size={14} /> Ask AI
+                </CreepyEyeButton>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

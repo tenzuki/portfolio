@@ -47,7 +47,8 @@ const About = () => {
                     style={{ y: yTitle }}
                     className="section-header"
                 >
-                    <h2>PROFILE</h2>
+                    <span className="section-label">01 / ABOUT ME</span>
+                    <h2>Crafting <em className="serif-accent">resilient</em> digital systems</h2>
                     <p>THE STORY & PHILOSOPHY</p>
                 </motion.div>
 

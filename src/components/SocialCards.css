@@ -111,6 +111,7 @@
 }
 
 .card-title {
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
     color: #ffffff;
@@ -119,10 +120,10 @@
 }
 
 .card-handle {
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     color: #64b5f6;
-    font-family: 'SF Mono', monospace;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .card-metric-pill {
@@ -134,6 +135,7 @@
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
     margin-top: 0.4rem;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     width: fit-content;
 }
@@ -145,12 +147,13 @@
 
 .metric-val {
     color: #f1f5f9;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .card-desc {
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
     color: #94a3b8;
     margin-top: 0.4rem;
 }
@@ -167,8 +170,11 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     text-decoration: none;
     transition: all 0.25s ease;
 }
@@ -179,4 +185,17 @@
     color: #ffffff;
     box-shadow: 0 0 16px hsl(var(--card-color) / 0.3);
     transform: translateY(-2px);
+}
+
+@media (max-width: 540px) {
+    .social-spotlight-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .spotlight-card {
+        min-height: 270px;
+    }
+    .spotlight-card-content {
+        padding: 1.25rem 1rem;
+    }
 }

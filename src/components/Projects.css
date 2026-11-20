@@ -15,21 +15,33 @@
     margin-bottom: 3rem;
 }
 
-.section-header h2 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    color: var(--text-primary);
+.section-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+}
+
+.section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
 }
 
 .section-header p {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    font-size: 1.25rem;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
 }
 
 /* Category Filter & Sort Toolbar */
@@ -55,13 +67,13 @@
     padding: 0.55rem 1.1rem;
     border-radius: 50px;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.25s ease;
-    font-family: inherit;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
 }
 
 .filter-chip:hover {
@@ -91,15 +103,15 @@
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
     padding: 0.35rem 0.85rem;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: inherit;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
 }
 
 .sort-btn:hover {
@@ -136,20 +148,42 @@
     .puzzle-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 250px;
+        gap: 1.25rem;
     }
 }
 
 @media (max-width: 650px) {
+    .projects {
+        padding: 3.5rem 0.5rem;
+    }
     .section-header h2 {
-        font-size: clamp(2.5rem, 10vw, 4rem);
+        font-size: clamp(26px, 8.5vw, 40px);
     }
     .puzzle-grid {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
+        gap: 1.15rem;
     }
     .projects-toolbar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 0.85rem;
+        margin-bottom: 2rem;
+    }
+    .filter-chips {
+        gap: 0.4rem;
+        width: 100%;
+    }
+    .filter-chip {
+        font-size: 10px;
+        padding: 0.4rem 0.75rem;
+    }
+    .sort-btn-group {
+        align-self: flex-start;
+    }
+    .sort-btn {
+        font-size: 10px;
+        padding: 0.3rem 0.7rem;
     }
 }
 
@@ -187,7 +221,22 @@
     .size-normal, .size-wide, .size-tall, .size-large {
         grid-column: span 1;
         grid-row: span 1;
-        min-height: 250px;
+        min-height: unset;
+    }
+    .puzzle-repo-card {
+        padding: 1.5rem 1.15rem;
+        border-radius: 16px;
+    }
+    .repo-name {
+        font-size: clamp(16px, 4.5vw, 20px);
+    }
+    .repo-desc {
+        font-size: 11.5px;
+        -webkit-line-clamp: 3;
+    }
+    .repo-footer {
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 }
 
@@ -236,15 +285,16 @@
     position: absolute;
     top: 14px;
     right: 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.12em;
     padding: 3px 10px;
     border-radius: 50px;
-    background: rgba(100, 181, 246, 0.15);
-    color: #64b5f6;
-    border: 1px solid rgba(100, 181, 246, 0.35);
+    background: rgba(0, 255, 204, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(0, 255, 204, 0.35);
 }
 
 /* REPO CONTENT */
@@ -273,18 +323,21 @@
 }
 
 .repo-name {
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
 }
 
 .repo-desc {
-    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--text-secondary);
-    line-height: 1.5;
-    font-weight: 300;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: 0.05em;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -302,11 +355,11 @@
 
 .repo-lang {
     color: var(--text-primary);
-    font-family: inherit;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-weight: 400;
     text-transform: uppercase;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
+    font-size: 10px;
+    letter-spacing: 0.1em;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid var(--border-color);
     padding: 0.3rem 0.75rem;
@@ -316,7 +369,9 @@
 .repo-stats {
     display: flex;
     gap: 1rem;
-    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
 }
 
 .repo-stats span {

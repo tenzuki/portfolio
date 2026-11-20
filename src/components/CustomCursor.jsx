@@ -1,11 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 
-const CustomCursor = () => {
+const CustomCursor = ({ disabled = false }) => {
     const cursorRef = useRef(null);
     const pos = useRef({ x: -100, y: -100 });
     const target = useRef({ x: -100, y: -100 });
     const isHovering = useRef(false);
     const isVisible = useRef(false);
+
+    useEffect(() => {
+        if (disabled && cursorRef.current) {
+            cursorRef.current.style.opacity = '0';
+        }
+    }, [disabled]);
 
     useEffect(() => {
         // Only enable on pointer devices (desktop)
@@ -54,12 +60,15 @@ const CustomCursor = () => {
             pos.current.x += (target.current.x - pos.current.x) * 0.2;
             pos.current.y += (target.current.y - pos.current.y) * 0.2;
 
-            if (cursorRef.current) {
+            if (cursorRef.current && !disabled) {
                 const scale = isHovering.current ? 1.6 : 1;
                 const size = 28;
                 cursorRef.current.style.transform = `translate3d(${pos.current.x - size / 2}px, ${pos.current.y - size / 2}px, 0) scale(${scale})`;
                 cursorRef.current.style.borderColor = isHovering.current ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.4)';
                 cursorRef.current.style.backgroundColor = isHovering.current ? 'rgba(255, 255, 255, 0.08)' : 'transparent';
+                if (isVisible.current) cursorRef.current.style.opacity = '1';
+            } else if (cursorRef.current && disabled) {
+                cursorRef.current.style.opacity = '0';
             }
 
             rafId = requestAnimationFrame(render);

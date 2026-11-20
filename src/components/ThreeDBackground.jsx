@@ -20,16 +20,16 @@ const ThreeDBackground = () => {
 
         // Scene & Atmospheric Space Fog
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x020104, 0.015);
+        scene.fog = new THREE.FogExp2(0x020104, 0.012);
 
-        // Camera
+        // Camera - Fixed cinematic viewpoint (no scroll distortion)
         const camera = new THREE.PerspectiveCamera(
             55, 
             window.innerWidth / window.innerHeight, 
             0.1, 
             4000
         );
-        camera.position.set(-6.5, 4.8, 6.8);
+        camera.position.set(-6.5, 4.6, 6.8);
         camera.lookAt(0, 0, 0);
 
         // WebGL Renderer
@@ -43,7 +43,7 @@ const ThreeDBackground = () => {
         renderer.setClearColor(0x020104, 1.0);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.3;
+        renderer.toneMappingExposure = 1.1; // Balanced exposure: vibrant cosmic colors without blown-out blinding glare
 
         renderer.domElement.style.position = 'absolute';
         renderer.domElement.style.top = '0';
@@ -57,12 +57,12 @@ const ThreeDBackground = () => {
         const composer = new EffectComposer(renderer);
         composer.addPass(new RenderPass(scene, camera));
 
-        // Unreal Bloom Pass - Gives the accretion disk its celestial glow
+        // Unreal Bloom Pass - Balanced celestial glow without nuclear wash-out
         const bloomPass = new UnrealBloomPass(
             new THREE.Vector2(window.innerWidth, window.innerHeight),
-            1.0,  // strength
-            0.6,  // radius
-            0.75  // threshold
+            0.55, // Refined bloom strength: smooth celestial aura
+            0.5,  // Radius
+            0.52  // Threshold: prevents saturated color channels from blowing out into solid white
         );
         composer.addPass(bloomPass);
 
@@ -71,10 +71,10 @@ const ThreeDBackground = () => {
             uniforms: {
                 "tDiffuse": { value: null },
                 "blackHoleScreenPos": { value: new THREE.Vector2(0.5, 0.5) },
-                "lensingStrength": { value: 0.14 },
+                "lensingStrength": { value: 0.12 },
                 "lensingRadius": { value: 0.35 },
                 "aspectRatio": { value: window.innerWidth / window.innerHeight },
-                "chromaticAberration": { value: 0.005 }
+                "chromaticAberration": { value: 0.004 }
             },
             vertexShader: `
                 varying vec2 vUv; 
@@ -257,14 +257,14 @@ const ThreeDBackground = () => {
         const diskMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
-                uColorHot: { value: new THREE.Color(0xffffff) },
-                uColorMid1: { value: new THREE.Color(0xff8833) },
-                uColorMid2: { value: new THREE.Color(0xff3377) },
-                uColorMid3: { value: new THREE.Color(0x7744ff) },
-                uColorOuter: { value: new THREE.Color(0x3366ff) },
+                uColorHot: { value: new THREE.Color(0xff9922) }, // Warm solar amber-gold (contrasts with white text)
+                uColorMid1: { value: new THREE.Color(0xff4411) }, // Fiery solar orange
+                uColorMid2: { value: new THREE.Color(0xcc1155) }, // Electric ruby / magenta
+                uColorMid3: { value: new THREE.Color(0x6622cc) }, // Deep royal purple
+                uColorOuter: { value: new THREE.Color(0x1a33aa) }, // Deep cosmic blue
                 uNoiseScale: { value: 2.5 },
                 uFlowSpeed: { value: 0.25 },
-                uDensity: { value: 1.4 }
+                uDensity: { value: 1.25 }
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -358,14 +358,15 @@ const ThreeDBackground = () => {
                     color = mix(color, uColorMid1, smoothstep(0.5, 0.75, normalizedRadius));
                     color = mix(color, uColorHot, smoothstep(0.7, 0.95, normalizedRadius));
                     
-                    color *= (0.55 + noiseVal * 0.95);
-                    float brightness = pow(1.0 - normalizedRadius, 1.0) * 3.8 + 0.6;
-                    brightness *= (0.35 + noiseVal * 2.2);
+                    color *= (0.65 + noiseVal * 0.65);
+                    // Balanced celestial accretion disk: vibrant and radiant, but never blown out to solid white
+                    float brightness = pow(1.0 - normalizedRadius, 0.9) * 2.1 + 0.55;
+                    brightness *= (0.45 + noiseVal * 0.95);
                     
-                    float pulse = sin(uTime * 1.8 + normalizedRadius * 12.0 + vAngle * 2.0) * 0.15 + 0.85;
+                    float pulse = sin(uTime * 1.8 + normalizedRadius * 12.0 + vAngle * 2.0) * 0.12 + 0.88;
                     brightness *= pulse;
                     
-                    float alpha = uDensity * (0.25 + noiseVal * 0.9);
+                    float alpha = uDensity * (0.28 + noiseVal * 0.8);
                     alpha *= smoothstep(0.0, 0.15, normalizedRadius);
                     alpha *= (1.0 - smoothstep(0.85, 1.0, normalizedRadius));
                     alpha = clamp(alpha, 0.0, 1.0);
@@ -384,20 +385,13 @@ const ThreeDBackground = () => {
         accretionDisk.renderOrder = 1;
         scene.add(accretionDisk);
 
-        // Mouse Parallax
+        // Gentle Mouse Parallax (Micro-interaction)
         const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
         const handleMouseMove = (e) => {
             mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
             mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
         };
         window.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-        // Scroll Parallax
-        let scrollY = window.scrollY;
-        const handleScroll = () => {
-            scrollY = window.scrollY;
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
 
         // Debounced Resize Listener
         let resizeTimeout;
@@ -427,9 +421,9 @@ const ThreeDBackground = () => {
             const deltaTime = Math.min(clock.getDelta(), 0.1);
             const elapsedTime = clock.getElapsedTime();
 
-            // Smooth mouse interpolation
-            mouse.x += (mouse.targetX - mouse.x) * 0.04;
-            mouse.y += (mouse.targetY - mouse.y) * 0.04;
+            // Smooth subtle mouse interpolation (no scroll distortion / side view change)
+            mouse.x += (mouse.targetX - mouse.x) * 0.03;
+            mouse.y += (mouse.targetY - mouse.y) * 0.03;
 
             // Update shader uniforms
             diskMaterial.uniforms.uTime.value = elapsedTime;
@@ -444,21 +438,20 @@ const ThreeDBackground = () => {
                 (blackHoleScreenPosVec3.y + 1) / 2
             );
 
-            // Dynamic camera parallax glide
-            const scrollNorm = (scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1));
-            const baseCamX = -6.5 + mouse.x * 1.5;
-            const baseCamY = 4.8 + mouse.y * 1.2 - scrollNorm * 2.0;
-            const baseCamZ = 6.8 + mouse.x * 0.5 + scrollNorm * 1.5;
+            // Stable fixed camera with gentle mouse micro-parallax - NO scroll angle distortion
+            const targetCamX = -6.5 + mouse.x * 0.55;
+            const targetCamY = 4.6 + mouse.y * 0.35;
+            const targetCamZ = 6.8;
 
-            camera.position.x += (baseCamX - camera.position.x) * 0.04;
-            camera.position.y += (baseCamY - camera.position.y) * 0.04;
-            camera.position.z += (baseCamZ - camera.position.z) * 0.04;
+            camera.position.x += (targetCamX - camera.position.x) * 0.04;
+            camera.position.y += (targetCamY - camera.position.y) * 0.04;
+            camera.position.z += (targetCamZ - camera.position.z) * 0.04;
             camera.lookAt(0, 0, 0);
 
-            // Rotations
+            // Continuous rotating black hole & starfield
             stars.rotation.y += deltaTime * 0.005;
             stars.rotation.x += deltaTime * 0.002;
-            accretionDisk.rotation.z += deltaTime * 0.025;
+            accretionDisk.rotation.z += deltaTime * 0.025; // Smooth continuous rotation
 
             composer.render(deltaTime);
         };
@@ -469,7 +462,6 @@ const ThreeDBackground = () => {
         return () => {
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', handleResize);
 
             if (container && renderer.domElement && container.contains(renderer.domElement)) {

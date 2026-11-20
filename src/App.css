@@ -26,7 +26,7 @@
   overflow: hidden;
 }
 
-/* Cinematic Vignette Overlay */
+/* Cinematic Vignette Overlay - Transparent at center so black hole is vivid & visible */
 .vignette-overlay {
   position: fixed;
   top: 0;
@@ -34,7 +34,7 @@
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 2, 0.75) 100%);
+  background: radial-gradient(circle at center, transparent 45%, rgba(0, 0, 2, 0.65) 100%);
   z-index: 1;
 }
 

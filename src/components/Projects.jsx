@@ -194,8 +194,9 @@ const Projects = () => {
                     transition={{ duration: 0.8 }}
                     className="section-header"
                 >
-                    <h2>ARCHIVE</h2>
-                    <p>ALL REPOSITORIES & PRODUCTION SYSTEMS</p>
+                    <span className="section-label">02 / SELECTED WORK</span>
+                    <h2>Projects &amp; <em className="serif-accent">Case Studies</em></h2>
+                    <p>ALL REPOSITORIES &amp; PRODUCTION SYSTEMS</p>
                 </motion.div>
 
                 {/* Filter and Sort Toolbar */}

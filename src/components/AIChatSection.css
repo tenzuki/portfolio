@@ -446,3 +446,60 @@
     opacity: 0.35;
     cursor: not-allowed;
 }
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .ai-section {
+        padding: 3.5rem 0.5rem;
+    }
+    .ai-info-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 18px;
+    }
+    .ai-info-title {
+        font-size: 1.75rem;
+    }
+    .ai-info-desc {
+        font-size: 12.5px;
+        margin-bottom: 1.75rem;
+    }
+    .ai-console {
+        height: 500px;
+        border-radius: 18px;
+    }
+    .console-topbar {
+        padding: 1rem 1.25rem;
+    }
+    .console-messages {
+        padding: 1.25rem;
+    }
+    .c-msg {
+        max-width: 95%;
+    }
+    .c-bubble {
+        padding: 0.75rem 1rem;
+        font-size: 13px;
+    }
+    .console-input-bar {
+        padding: 0.85rem 1rem;
+        gap: 0.5rem;
+    }
+    .c-input {
+        padding: 0.65rem 0.85rem;
+        font-size: 13px;
+    }
+    .c-send-btn {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-console {
+        height: 450px;
+    }
+    .ai-avatar-icon {
+        width: 40px;
+        height: 40px;
+    }
+}

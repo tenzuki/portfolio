@@ -18,15 +18,43 @@
     }
     .certs-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     .cert-image-wrapper {
-        min-height: 300px;
+        min-height: 280px;
+        max-height: 380px;
     }
     .cert-card {
-        padding: 2rem;
+        padding: 2.2rem 1.5rem;
     }
     .cert-title {
         font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .certifications {
+        padding: 3.5rem 0.5rem;
+    }
+    .cert-card {
+        padding: 1.75rem 1.15rem;
+        border-radius: 18px;
+    }
+    .cert-title {
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+    }
+    .cert-desc {
+        font-size: 12px;
+        margin-bottom: 2rem;
+    }
+    .cert-image-wrapper {
+        min-height: 220px;
+        max-height: 280px;
+        border-radius: 18px;
+    }
+    .cert-icon-wrapper {
+        padding: 1rem;
+        margin-bottom: 1.25rem;
     }
 }
 

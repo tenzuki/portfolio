@@ -15,21 +15,33 @@
     margin-bottom: 4rem;
 }
 
-.section-header h2 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    color: var(--text-primary);
+.section-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+}
+
+.section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4.2vw, 58px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
 }
 
 .section-header p {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    font-size: 1.25rem;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
 }
 
 .about-content {
@@ -51,12 +63,54 @@
     }
     .about-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
     .about-text-card {
         padding: 2.5rem 1.75rem !important;
     }
     .about-image-wrapper {
-        min-height: 400px;
+        min-height: 340px;
+        max-height: 440px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about {
+        padding: 3.5rem 0.5rem;
+    }
+    .about-content {
+        gap: 2.5rem;
+    }
+    .about-text-card {
+        padding: 1.75rem 1.15rem !important;
+        border-radius: 18px;
+    }
+    .story-pill {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.75rem;
+        margin-bottom: 1.1rem;
+    }
+    .story-hook-title {
+        font-size: clamp(1.2rem, 5vw, 1.75rem);
+        margin-bottom: 1.1rem;
+    }
+    .story-lead-para {
+        font-size: 12.5px;
+        line-height: 1.75;
+        margin-bottom: 1.1rem;
+    }
+    .story-para {
+        font-size: 12px;
+        line-height: 1.75;
+        margin-bottom: 1.1rem;
+    }
+    .about-image-wrapper {
+        min-height: 240px;
+        max-height: 320px;
+        border-radius: 18px;
+    }
+    .story-stat-number {
+        font-size: 32px;
     }
 }
 
@@ -103,28 +157,31 @@
 }
 
 .story-hook-title {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 700;
     color: var(--text-primary);
-    line-height: 1.25;
-    margin-bottom: 1.75rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
 }
 
 .story-lead-para {
-    font-size: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
     color: #d1d5db;
-    line-height: 1.7;
+    line-height: 1.9;
     margin-bottom: 1.5rem;
     font-weight: 400;
 }
 
 .story-para {
-    font-size: 1.05rem;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.9;
     margin-bottom: 1.5rem;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .highlight-text {
@@ -155,19 +212,21 @@
 }
 
 .story-stat-number {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: #ffffff;
+    font-family: var(--font-serif);
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--accent);
     line-height: 1;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
 }
 
 .story-stat-label {
-    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
     color: var(--text-secondary);
     line-height: 1.4;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
 }
 
 .about-image-wrapper {
@@ -248,25 +307,28 @@
 }
 
 .skill-step-num {
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: #64b5f6;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     margin-bottom: 0.5rem;
 }
 
 .skill-card h3 {
-    font-size: 1.35rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
     margin-bottom: 0.6rem;
     color: var(--text-primary);
     letter-spacing: -0.01em;
 }
 
 .skill-card p {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    font-weight: 300;
+    font-size: 12.5px;
+    line-height: 1.7;
+    font-weight: 400;
 }

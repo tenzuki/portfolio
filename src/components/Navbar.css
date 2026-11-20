@@ -14,107 +14,84 @@
 .navbar-container {
     max-width: 1240px;
     margin: 0 auto;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 2rem;
     box-sizing: border-box;
     width: 100%;
 }
 
-/* Brand Identity with Avatar Logo - As in Image 1 */
+/* Brand Identity - Minimalist Text Logo */
 .logo {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 0.85rem;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     flex-shrink: 0;
 }
 
 .logo:hover {
-    transform: scale(1.02);
-}
-
-.logo-avatar-wrap {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(100, 181, 246, 0.85), rgba(0, 255, 136, 0.65));
-    box-shadow: 0 0 16px rgba(100, 181, 246, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: box-shadow 0.3s ease;
-}
-
-.logo:hover .logo-avatar-wrap {
-    box-shadow: 0 0 24px rgba(0, 255, 136, 0.6);
-}
-
-.logo-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #181920;
-    display: block;
-}
-
-.logo-status-dot {
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 10px;
-    height: 10px;
-    background: #00ff88;
-    border: 2px solid #030303;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ff88;
+    transform: scale(1.03);
+    opacity: 0.95;
 }
 
 .logo-text {
-    font-size: 1.35rem;
-    font-weight: 900;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
     color: #ffffff;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    white-space: nowrap;
+    position: relative;
+}
+
+.logo-text::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 1.5px;
+    background: linear-gradient(90deg, #00ffcc, rgba(0, 255, 204, 0.2));
+    transition: width 0.3s ease;
+}
+
+.logo:hover .logo-text::after {
+    width: 100%;
+}
+
+/* Nav Links - Strict Horizontal Bar on Desktop */
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     white-space: nowrap;
 }
 
-/* Nav Links - Strict Horizontal Bar As in Image 1 */
-.nav-links {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    gap: 2rem;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    white-space: nowrap !important;
-}
-
 .nav-links li {
-    display: inline-flex !important;
-    align-items: center !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
     transition: color 0.25s ease;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     text-decoration: none;
     white-space: nowrap;
     display: inline-block;
@@ -124,30 +101,185 @@
     color: #ffffff;
 }
 
-@media (max-width: 960px) {
+/* Guide Me Creepy Eye Action Button - DM Mono 12px 500 */
+.nav-guide-btn {
+    --creepy-cover-bg: #ffffff;
+    --creepy-cover-text: #000000;
+    --creepy-border: rgba(0, 255, 204, 0.45);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-width: 125px !important;
+    height: 36px !important;
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.15);
+    transition: all 0.3s ease;
+}
+
+.nav-guide-btn:hover {
+    border-color: #00ffcc !important;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.45);
+    transform: translateY(-2px);
+}
+
+.nav-guide-btn.is-tour-active {
+    border-color: #00ffcc !important;
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+    animation: guide-btn-pulse 2s infinite ease-in-out;
+}
+
+@keyframes guide-btn-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+    50% { box-shadow: 0 0 28px rgba(0, 255, 204, 0.7); }
+}
+
+.nav-guide-icon {
+    color: #000000;
+    stroke: #000000;
+    transition: transform 0.4s ease;
+}
+
+.nav-guide-btn:hover .nav-guide-icon {
+    transform: rotate(90deg);
+}
+
+/* Mobile Hamburger Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0;
+}
+
+.mobile-menu-toggle:hover {
+    background: rgba(0, 255, 204, 0.15);
+    border-color: #00ffcc;
+    color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+}
+
+/* Mobile Navigation Drawer */
+.mobile-menu-drawer {
+    display: none;
+    width: 100%;
+    background: rgba(8, 8, 12, 0.98);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border-bottom: 1px solid rgba(0, 255, 204, 0.25);
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+}
+
+.mobile-menu-inner {
+    padding: 1.5rem 1.5rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.mobile-nav-list a {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    display: block;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.mobile-nav-list a:hover {
+    color: #00ffcc;
+    background: rgba(0, 255, 204, 0.08);
+    border-color: rgba(0, 255, 204, 0.25);
+}
+
+.mobile-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-action-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: 44px !important;
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+@media (max-width: 1080px) {
     .nav-links {
-        gap: 1.25rem;
+        gap: 1.2rem;
     }
     .nav-links a {
-        font-size: 0.82rem;
+        font-size: 11px;
     }
-    .logo-text {
-        font-size: 1.15rem;
+}
+
+@media (max-width: 920px) {
+    .nav-links {
+        display: none !important;
+    }
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    .mobile-menu-drawer {
+        display: block;
     }
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 0.85rem 0;
+    }
     .navbar-container {
         padding: 0 1.25rem;
     }
     .logo-text {
-        display: none;
+        font-size: 14px;
     }
-    .nav-links {
-        gap: 0.85rem;
+    .mobile-menu-toggle {
+        width: 38px;
+        height: 38px;
     }
-    .nav-links a {
-        font-size: 0.76rem;
-        letter-spacing: 0.05em;
+}
+
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0 1rem;
+    }
+    .logo-text {
+        font-size: 13.5px;
     }
 }

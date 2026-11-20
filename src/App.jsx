@@ -13,10 +13,12 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import ThreeDBackground from './components/ThreeDBackground';
 import CustomCursor from './components/CustomCursor';
+import VisualTour from './components/VisualTour';
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isTourActive, setIsTourActive] = useState(false);
   const { scrollYProgress } = useScroll();
   const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
@@ -78,7 +80,13 @@ function App() {
         )}
       </AnimatePresence>
 
-      <CustomCursor />
+      <CustomCursor disabled={isTourActive} />
+      
+      {/* Gamified Autopilot Guided Tour */}
+      <VisualTour 
+        isActive={isTourActive} 
+        onClose={() => setIsTourActive(false)} 
+      />
       
       {/* Cinematic Vignette Overlay */}
       <div className="vignette-overlay" />
@@ -102,7 +110,10 @@ function App() {
       </div>
       
       <div className="content-overlay">
-        <Navbar />
+        <Navbar 
+          onStartTour={() => setIsTourActive(true)} 
+          isTourActive={isTourActive} 
+        />
         <main>
           <Hero />
           <About />

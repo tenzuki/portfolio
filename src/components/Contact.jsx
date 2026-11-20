@@ -27,9 +27,9 @@ const Contact = () => {
                     </div>
                     
                     <div className="contact-content">
-                        <span className="contact-overline">WHAT'S NEXT?</span>
+                        <span className="contact-overline">05 / WHAT'S NEXT?</span>
 
-                        <h2 className="contact-title">Get In Touch</h2>
+                        <h2 className="contact-title">Let's build <em className="serif-accent">together.</em></h2>
                         <p className="contact-desc">
                             Currently leading engineering at Bornov Technologies LLP. My inbox is always open for ambitious full-stack systems, mobile architectures, or technical leadership.
                         </p>

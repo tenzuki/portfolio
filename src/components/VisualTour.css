@@ -1,0 +1,657 @@
+/* Visual Tour - Gamified Autopilot & Speed-Ramping Cursor System */
+
+.visual-tour-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Hide standard custom cursor when tour is running */
+body.visual-tour-running {
+    cursor: none !important;
+}
+
+/* =========================================================
+   1. REAL ANIMATED SPACE RECONNAISSANCE DRONE
+   ========================================================= */
+.space-recon-drone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    transition: filter 0.2s ease;
+}
+
+.drone-vessel {
+    position: absolute;
+    top: -35px;
+    left: -35px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    transition: transform 0.08s linear;
+}
+
+.drone-svg-chassis {
+    width: 66px;
+    height: 66px;
+    filter: drop-shadow(0 0 12px rgba(0, 255, 204, 0.65));
+    transition: filter 0.3s ease;
+}
+
+.drone-core-sensor {
+    animation: drone-sensor-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes drone-sensor-pulse {
+    0% { r: 5; fill: #00ffcc; filter: drop-shadow(0 0 4px #00ffcc); }
+    100% { r: 7.5; fill: #ffffff; filter: drop-shadow(0 0 12px #00ffcc); }
+}
+
+.drone-sensor-sweep-line {
+    animation: sensor-sweep-spin 1.8s linear infinite;
+    transform-origin: 50px 50px;
+}
+
+@keyframes sensor-sweep-spin {
+    0% { transform: rotate(0deg); opacity: 0.8; }
+    50% { opacity: 0.3; }
+    100% { transform: rotate(360deg); opacity: 0.8; }
+}
+
+/* 4 Corner Quad Plasma Ion Thruster Plumes */
+.thruster-plume {
+    position: absolute;
+    width: 10px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00ffcc 0%, rgba(0, 255, 204, 0.4) 50%, transparent 80%);
+    filter: blur(1.5px);
+    opacity: 0.85;
+    animation: thruster-plasma-pulse 0.4s infinite alternate;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.plume-tl { top: -2px; left: 10px; transform: rotate(-45deg); }
+.plume-tr { top: -2px; right: 10px; transform: rotate(45deg); }
+.plume-bl { bottom: -2px; left: 10px; transform: rotate(-135deg); }
+.plume-br { bottom: -2px; right: 10px; transform: rotate(135deg); }
+
+@keyframes thruster-plasma-pulse {
+    0% { transform: scaleY(0.85) scaleX(0.9); opacity: 0.7; }
+    100% { transform: scaleY(1.3) scaleX(1.1); opacity: 1; }
+}
+
+.thruster-core-light {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ffcc;
+}
+
+.core-tl { top: 13px; left: 13px; }
+.core-tr { top: 13px; right: 13px; }
+.core-bl { bottom: 13px; left: 13px; }
+.core-br { bottom: 13px; right: 13px; }
+
+/* WARP SPEED RAMPING FLIGHT MODE */
+.space-recon-drone.is-warping .drone-svg-chassis {
+    filter: drop-shadow(0 0 20px #ff9100) drop-shadow(0 0 35px rgba(255, 145, 0, 0.8));
+}
+
+.space-recon-drone.is-warping .thruster-plume {
+    background: radial-gradient(circle, #ffea00 0%, #ff5e00 60%, transparent 80%);
+    height: 28px;
+    width: 14px;
+    filter: blur(2px);
+    box-shadow: 0 0 15px #ff9100;
+}
+
+/* =========================================================
+   HOLOGRAPHIC VENTRAL LIDAR SCANNING CONE
+   ========================================================= */
+.drone-scanner-cone {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 150px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -2;
+}
+
+.space-recon-drone.is-scanning .drone-scanner-cone {
+    opacity: 1;
+}
+
+/* Projected Laser Cone Light */
+.scanner-beam-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 255, 204, 0.5) 0%, rgba(0, 255, 204, 0.08) 70%, transparent 100%);
+    clip-path: polygon(50% 0%, 5% 100%, 95% 100%);
+    animation: scanner-light-flicker 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes scanner-light-flicker {
+    0% { opacity: 0.65; }
+    100% { opacity: 0.95; }
+}
+
+/* Scanning Sweep Grid Lines moving downward */
+.scanner-sweep-grid {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 204, 0.25) 0px,
+        rgba(0, 255, 204, 0.25) 2px,
+        transparent 2px,
+        transparent 16px
+    );
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: scanner-grid-travel 1.4s linear infinite;
+}
+
+@keyframes scanner-grid-travel {
+    0% { background-position-y: 0px; }
+    100% { background-position-y: 32px; }
+}
+
+/* Surface Scanning Reticle & Lock Brackets */
+.scanner-target-reticle {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 76px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reticle-pulse-ring {
+    position: absolute;
+    width: 55px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid #00ffcc;
+    box-shadow: 0 0 14px #00ffcc, inset 0 0 8px rgba(0, 255, 204, 0.4);
+    animation: reticle-ring-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes reticle-ring-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+.reticle-center-cross {
+    position: absolute;
+    width: 14px;
+    height: 1.5px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff;
+}
+
+.reticle-center-cross::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 6px;
+    width: 1.5px;
+    height: 14px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff;
+}
+
+.reticle-bracket {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: #00ffcc;
+    border-style: solid;
+}
+
+.bracket-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.bracket-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.bracket-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.bracket-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+/* Real-time Telemetry HUD Attached to Drone */
+.drone-telemetry-hud {
+    position: absolute;
+    top: 36px;
+    left: 36px;
+    background: rgba(8, 10, 16, 0.92);
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    border-radius: 8px;
+    padding: 0.35rem 0.65rem;
+    white-space: nowrap;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 255, 204, 0.2);
+    font-family: var(--font-code);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    pointer-events: none;
+    transition: border-color 0.2s ease;
+}
+
+.space-recon-drone.is-warping .drone-telemetry-hud {
+    border-color: rgba(255, 145, 0, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 145, 0, 0.3);
+}
+
+.telemetry-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.telemetry-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #00ffcc;
+    letter-spacing: 0.08em;
+}
+
+.space-recon-drone.is-warping .telemetry-badge {
+    color: #ff9100;
+}
+
+.telemetry-speed {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+}
+
+.telemetry-target {
+    font-size: 0.62rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+/* =========================================================
+   2. TARGET ELEMENT HIGHLIGHTING & GLOWING FRAME
+   ========================================================= */
+.tour-highlighted-element {
+    position: relative !important;
+    z-index: 50 !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    outline: 2px solid rgba(0, 255, 204, 0.8) !important;
+    outline-offset: 8px !important;
+    box-shadow: 0 0 35px rgba(0, 255, 204, 0.3), inset 0 0 20px rgba(0, 255, 204, 0.1) !important;
+    border-radius: 16px !important;
+    animation: tour-element-pulse 2s infinite ease-in-out !important;
+}
+
+/* Active Drone Holographic Laser Sweep Line */
+.tour-highlighted-element::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ffcc, #ffffff, #00ffcc, transparent);
+    box-shadow: 0 0 16px #00ffcc, 0 0 28px rgba(0, 255, 204, 0.8);
+    pointer-events: none;
+    z-index: 52;
+    animation: scanline-vertical-sweep 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes scanline-vertical-sweep {
+    0% { top: 0%; opacity: 0.9; }
+    50% { opacity: 1; }
+    100% { top: 98%; opacity: 0.9; }
+}
+
+@keyframes tour-element-pulse {
+    0%, 100% {
+        outline-color: rgba(0, 255, 204, 0.9);
+        box-shadow: 0 0 35px rgba(0, 255, 204, 0.35);
+    }
+    50% {
+        outline-color: rgba(0, 255, 204, 0.4);
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+    }
+}
+
+/* =========================================================
+   3. FLOATING HUD TOUR CARD (Top Right / Dynamic)
+   ========================================================= */
+.tour-card-floater {
+    position: fixed;
+    top: 5.5rem;
+    right: 2.5rem;
+    width: 380px;
+    max-width: calc(100vw - 3rem);
+    background: rgba(12, 12, 18, 0.92);
+    border: 1px solid rgba(0, 255, 204, 0.35);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 255, 204, 0.15);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 99999;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+.tour-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+}
+
+.tour-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    border-radius: 50px;
+    color: #00ffcc;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-family: var(--font-code);
+}
+
+.tour-target-icon {
+    color: #00ffcc;
+}
+
+.tour-step-counter {
+    font-family: var(--font-code);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.08em;
+}
+
+.tour-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.tour-card-desc {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    font-weight: 400;
+}
+
+.tour-card-status {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    color: #ff9100;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    font-family: var(--font-code);
+}
+
+.tour-hint-icon {
+    flex-shrink: 0;
+}
+
+/* Step Countdown Line */
+.tour-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.tour-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffcc, #ff9100);
+    border-radius: 9999px;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 8px #00ffcc;
+}
+
+/* =========================================================
+   4. GAMIFIED HUD CONTROLLER BAR (Bottom Center)
+   ========================================================= */
+.tour-hud-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 16, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 255, 204, 0.15);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 99999;
+    pointer-events: auto;
+    user-select: none;
+}
+
+/* Live autopilot mode badge */
+.hud-mode-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    font-family: var(--font-code);
+    padding-right: 0.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hud-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ffcc;
+    box-shadow: 0 0 8px #00ffcc;
+    animation: hud-dot-pulse 1.5s infinite;
+}
+
+@keyframes hud-dot-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Controls Group (Prev, Play/Pause, Next) */
+.hud-controls-group {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.hud-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hud-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.08);
+}
+
+.hud-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.hud-btn--play {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.hud-btn--play:hover:not(:disabled) {
+    background: #f0f0f0;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
+    color: #000000;
+}
+
+/* Step Dots */
+.hud-dots-track {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0 0.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hud-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0;
+}
+
+.hud-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.hud-dot.is-active {
+    width: 22px;
+    border-radius: 10px;
+    background: #00ffcc;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+.hud-dot.is-passed {
+    background: rgba(0, 255, 204, 0.5);
+}
+
+/* Speed Toggle */
+.hud-speed-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.65rem;
+    background: rgba(255, 145, 0, 0.12);
+    border: 1px solid rgba(255, 145, 0, 0.35);
+    border-radius: 50px;
+    color: #ff9100;
+    font-size: 0.72rem;
+    font-weight: 800;
+    font-family: 'SF Mono', monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hud-speed-btn:hover {
+    background: rgba(255, 145, 0, 0.25);
+    box-shadow: 0 0 12px rgba(255, 145, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* Exit Button */
+.hud-exit-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hud-exit-btn:hover {
+    background: rgba(255, 60, 60, 0.2);
+    border-color: rgba(255, 60, 60, 0.5);
+    color: #ff6b6b;
+}
+
+.hud-esc-tag {
+    font-size: 0.62rem;
+    font-family: 'SF Mono', monospace;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .tour-card-floater {
+        top: auto;
+        bottom: 5.5rem;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        padding: 1.1rem;
+    }
+
+    .tour-hud-bar {
+        bottom: 1rem;
+        padding: 0.5rem 0.85rem;
+        gap: 0.65rem;
+        width: calc(100vw - 2rem);
+        justify-content: space-between;
+    }
+
+    .hud-mode-pill,
+    .hud-dots-track {
+        display: none;
+    }
+}
