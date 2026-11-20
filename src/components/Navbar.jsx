@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Compass, Menu, X } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 import CreepyEyeButton from './CreepyEyeButton';
 import './Navbar.css';
 
-const Navbar = ({ onStartTour, isTourActive = false }) => {
+const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Close mobile drawer on desktop resize
@@ -34,11 +34,6 @@ const Navbar = ({ onStartTour, isTourActive = false }) => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleTourClick = () => {
-    setIsMobileMenuOpen(false);
-    onStartTour();
-  };
-
   return (
     <motion.nav 
       initial={{ y: -100 }}
@@ -56,18 +51,6 @@ const Navbar = ({ onStartTour, isTourActive = false }) => {
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li>
-            <CreepyEyeButton 
-              onClick={onStartTour} 
-              variant="nav" 
-              size="sm" 
-              className={`nav-guide-btn ${isTourActive ? 'is-tour-active' : ''}`}
-              title="Launch Autonomous Space Drone Reconnaissance Guide"
-            >
-              <Compass size={13} className="nav-guide-icon" />
-              <span>Guide Me</span>
-            </CreepyEyeButton>
-          </li>
           <li>
             <CreepyEyeButton 
               href="#ai-assistant" 
@@ -114,16 +97,6 @@ const Navbar = ({ onStartTour, isTourActive = false }) => {
               </ul>
 
               <div className="mobile-nav-actions">
-                <CreepyEyeButton 
-                  onClick={handleTourClick} 
-                  variant="nav" 
-                  size="md" 
-                  className={`nav-guide-btn mobile-action-btn ${isTourActive ? 'is-tour-active' : ''}`}
-                >
-                  <Compass size={14} className="nav-guide-icon" />
-                  <span>Guide Me</span>
-                </CreepyEyeButton>
-
                 <CreepyEyeButton 
                   href="#ai-assistant" 
                   onClick={handleLinkClick}
